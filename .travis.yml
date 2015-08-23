@@ -1,0 +1,32 @@
+language: java
+jdk: oraclejdk8
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/22c814d1b7f116d1cabd
+    on_success: change
+    on_failure: always
+    on_start: never
+
+cache:
+  directories:
+  - $HOME/.m2/repository
+
+before_script:
+  - pip install --user codecov
+
+after_success:
+  - codecov
+  - echo "-----BEGIN PGP PRIVATE KEY BLOCK-----" > ~/pkey.asc
+  - echo "" >> ~/pkey.asc
+  - echo $GPG_PRIVKEY >> ~/pkey.asc
+  - echo "" >> ~/pkey.asc
+  - echo "-----END PGP PRIVATE KEY BLOCK-----" >> ~/pkey.asc
+  - gpg --import ~/pkey.asc
+  - echo "<settings>" > ~/settings.xml
+  - echo "<servers>" >> ~/settings.xml
+  - echo "<server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server>" >> ~/settings.xml
+  - echo "</servers>" >> ~/settings.xml
+  - echo "</settings>" >> ~/settings.xml
+  - mvn deploy -P deploy --settings ~/settings.xml -Dgpg.passphrase=\${env.GPG_PASSPHRASE} -DskipTests
