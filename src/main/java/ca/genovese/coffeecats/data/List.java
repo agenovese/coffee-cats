@@ -11,15 +11,31 @@ import java.util.NoSuchElementException;
 @Public
 public interface List<A> extends Iterable<A>, Kind<List, A> {
   @Public
-  @SuppressWarnings("unchecked")
+  @SafeVarargs
   static <A> List<A> create(A... as) {
-    List list = new Nil<>();
+    List<A> list = new Nil<>();
 
     for (int i = as.length - 1; i >= 0; i--) {
       list = new Cons<>(as[i], list);
     }
 
     return list;
+  }
+
+  @Public
+  static <A> List<A> cons(A a, List<A> as) {
+    return new Cons<>(a, as);
+  }
+
+  @SuppressWarnings("unused")
+  default int length() {
+    Eval<Integer> length = Eval.now(0);
+
+    for (A a : this) {
+      length = length.flatMap(i -> Eval.later(() -> i + 1));
+     }
+
+    return length.value();
   }
 
   A getHead();
@@ -67,7 +83,7 @@ final class ListIterator<A> implements Iterator<A> {
 
   @Override
   public A next() {
-    if(list instanceof Cons) {
+    if (list instanceof Cons) {
       A head = list.getHead();
       list = list.getTail();
       return head;
@@ -81,25 +97,15 @@ final class ListIterator<A> implements Iterator<A> {
 @EqualsAndHashCode
 final class Nil<A> implements List<A> {
   public A getHead() {
-    throw new IllegalStateException("Head on an empty list");
+    throw new NoSuchElementException("getHead on an empty list");
   }
 
   public List<A> getTail() {
-    throw new IllegalStateException("Tail on an empty list");
+    throw new NoSuchElementException("getTail on an empty list");
   }
 
   @Override
   public Iterator<A> iterator() {
-    return new Iterator<A>() {
-      @Override
-      public boolean hasNext() {
-        return false;
-      }
-
-      @Override
-      public A next() {
-        throw new NoSuchElementException();
-      }
-    };
+    return new ListIterator<>(this);
   }
 }
