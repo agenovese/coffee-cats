@@ -27,11 +27,16 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
   }
 
   boolean isDefined();
+
   A get();
 
   @Public
   default A getOrElse(A a) {
     return isDefined() ? get() : a;
+  }
+
+  default Iterator<A> iterator() {
+    return new OptionIterator<>(this);
   }
 }
 
@@ -53,27 +58,6 @@ class Some<A> implements Option<A> {
   public A get() {
     return a;
   }
-
-  @Override
-  public Iterator<A> iterator() {
-    return new Iterator<A>() {
-      boolean next = true;
-      @Override
-      public boolean hasNext() {
-        return next;
-      }
-
-      @Override
-      public A next() {
-        if(next) {
-          next = false;
-          return a;
-        } else {
-          throw new NoSuchElementException();
-        }
-      }
-    };
-  }
 }
 
 @ToString
@@ -92,21 +76,31 @@ class None<A> implements Option<A> {
 
   @Override
   public A get() {
-    throw new UnsupportedOperationException("get() called on a None");
+    throw new NoSuchElementException("get() called on a None");
+  }
+}
+
+class OptionIterator<A> implements Iterator<A> {
+  private final Option<A> opt;
+  private boolean hasNext;
+
+  OptionIterator(Option<A> opt) {
+    this.opt = opt;
+    hasNext = opt.isDefined();
   }
 
   @Override
-  public Iterator<A> iterator() {
-    return new Iterator<A>() {
-      @Override
-      public boolean hasNext() {
-        return false;
-      }
+  public boolean hasNext() {
+    return hasNext;
+  }
 
-      @Override
-      public A next() {
-        throw new NoSuchElementException();
-      }
-    };
+  @Override
+  public A next() {
+    if (hasNext) {
+      hasNext = false;
+      return opt.get();
+    } else {
+      throw new NoSuchElementException();
+    }
   }
 }
