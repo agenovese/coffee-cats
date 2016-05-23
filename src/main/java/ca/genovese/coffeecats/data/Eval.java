@@ -1,6 +1,7 @@
 package ca.genovese.coffeecats.data;
 
 import ca.genovese.coffeecats.Public;
+import ca.genovese.coffeecats.kind.Kind;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -37,7 +38,7 @@ import java.util.function.Supplier;
  * overflows.
  */
 @Public
-public interface Eval<A> extends Serializable {
+public interface Eval<A> extends Serializable, Kind<Eval, A> {
   static <A> Eval<A> now(A a) {
     return new Now<>(a);
   }

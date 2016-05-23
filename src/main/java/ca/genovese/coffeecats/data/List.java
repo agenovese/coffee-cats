@@ -1,6 +1,7 @@
 package ca.genovese.coffeecats.data;
 
 import ca.genovese.coffeecats.Public;
+import ca.genovese.coffeecats.kind.Kind;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -8,7 +9,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 @Public
-public interface List<T> extends Iterable<T> {
+public interface List<A> extends Iterable<A>, Kind<List, A> {
   @Public
   @SuppressWarnings("unchecked")
   static <A> List<A> create(A... as) {
@@ -21,9 +22,9 @@ public interface List<T> extends Iterable<T> {
     return list;
   }
 
-  T getHead();
+  A getHead();
 
-  List<T> getTail();
+  List<A> getTail();
 }
 
 @ToString
@@ -52,10 +53,10 @@ final class Cons<A> implements List<A> {
 
 }
 
-final class ListIterator<T> implements Iterator<T> {
-  private List<T> list;
+final class ListIterator<A> implements Iterator<A> {
+  private List<A> list;
 
-  ListIterator(List<T> list) {
+  ListIterator(List<A> list) {
     this.list = list;
   }
 
@@ -65,9 +66,9 @@ final class ListIterator<T> implements Iterator<T> {
   }
 
   @Override
-  public T next() {
+  public A next() {
     if(list instanceof Cons) {
-      T head = list.getHead();
+      A head = list.getHead();
       list = list.getTail();
       return head;
     } else {
