@@ -1,40 +1,38 @@
 language: java
+
 jdk: oraclejdk8
 
 notifications:
   webhooks:
     urls:
-      - https://webhooks.gitter.im/e/22c814d1b7f116d1cabd
+    - https://webhooks.gitter.im/e/22c814d1b7f116d1cabd
     on_success: change
     on_failure: always
     on_start: never
 
-
 addons:
   coverity_scan:
     project:
-      name: "agenovese/coffee-cats"
-      description: "Build submitted via Travis CI"
+      name: agenovese/coffee-cats
+      description: Build submitted via Travis CI
     notification_email: angelo@genovese.ca
-    build_command_prepend: "mvn clean"
-    build_command:   "mvn -DskipTests=true compile"
+    build_command_prepend: mvn clean
+    build_command: mvn -DskipTests=true compile
     branch_pattern: coverity_scan
 
 cache:
   directories:
-  - $HOME/.m2/repository
+  - "$HOME/.m2/repository"
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_1f3bc3ebd8f2_key -iv $encrypted_1f3bc3ebd8f2_iv -in pkey.asc.enc -out pkey.asc -d
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-  - echo "-----BEGIN PGP PRIVATE KEY BLOCK-----" > ~/pkey.asc
-  - echo "" >> ~/pkey.asc
-  - echo $GPG_PRIVKEY >> ~/pkey.asc
-  - echo "" >> ~/pkey.asc
-  - echo "-----END PGP PRIVATE KEY BLOCK-----" >> ~/pkey.asc
-  - gpg --import ~/pkey.asc
-  - echo "<settings>" > ~/settings.xml
-  - echo "<servers>" >> ~/settings.xml
-  - echo "<server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server>" >> ~/settings.xml
-  - echo "</servers>" >> ~/settings.xml
-  - echo "</settings>" >> ~/settings.xml
-  - mvn deploy -P deploy --settings ~/settings.xml -Dgpg.passphrase=\${env.GPG_PASSPHRASE} -DskipTests
+- bash <(curl -s https://codecov.io/bash)
+- gpg --import ~/pkey.asc
+- echo "<settings>" > ~/settings.xml
+- echo "<servers>" >> ~/settings.xml
+- echo "<server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server>" >> ~/settings.xml
+- echo "</servers>" >> ~/settings.xml
+- echo "</settings>" >> ~/settings.xml
+- mvn deploy -P deploy --settings ~/settings.xml -Dgpg.passphrase=\${env.GPG_PASSPHRASE} -DskipTests
