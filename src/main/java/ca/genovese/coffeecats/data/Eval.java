@@ -59,6 +59,8 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * For lazy instances (Later, Always), any necessary computation
    * will be performed at this point. For eager instances (Now), a
    * value will be immediately returned.
+   *
+   * @return The result of the computation
    */
   A value();
 
@@ -71,6 +73,9 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * <p>
    * Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
+   *
+   * @param f the function to apply to the result of the current computation
+   * @return A new computation which includes the application of f
    */
   @Public
   default <B> Eval<B> map(Function<A, B> f) {
@@ -88,6 +93,9 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * <p>
    * Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
+   *
+   * @param f the function to apply to the result of the current computation
+   * @return A new computation which includes the application of f
    */
   default <B> Eval<B> flatMap(Function<A, Eval<B>> f) {
     return new Compute<>(() -> this, f);
@@ -99,6 +107,8 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * <p>
    * Practically, this means that when called on an Always&lt;A&gt; a
    * Later&lt;A&gt; with an equivalent computation will be returned.
+   *
+   * @return A new, memoizing, Eval that is equivalent to the current Eval
    */
   @Public
   Eval<A> memoize();
