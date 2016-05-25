@@ -36,3 +36,6 @@ after_success:
 - echo "</servers>" >> ~/settings.xml
 - echo "</settings>" >> ~/settings.xml
 - mvn deploy -P deploy --settings ~/settings.xml -Dgpg.passphrase=\${env.GPG_PASSPHRASE} -DskipTests
+env:
+  global:
+    secure: quuC5EDoqqyRFOKZdjAepreYVP2GqCfM9+QmvzUX2qgvTygmidNN4c1C6v97w3Mt+ebfWW5LAMAIPWOo892LUA/fCA+ao+bquNn0K6zmIJyKebnnkYyqtsHs8QiCSI5Otw/noXDmujEo8YezcO5KB5W6Pu3/bo3sLdLppx0npq/tPXiUxgTQy6W2tphC/MB/Okbql8UuhmNYy237MiGp8f1uHgyg7iQvjb1MFCVOJbL4i1JCctGP8AXozpCEP+rP1FZhjRMD86ZtFPX7U2Lwawcccg48USuJemEdVoxrEpHmxLSEnWTSGgzCt9X0yCa5GiltykaOZ4pWoWrzwDzdGWPI9MG5F4Y4CyXuU7wgcDN+XdvHlpBT39EmG666lQIKjU34Z0WMuyri8pIzoTfOGjDR+G3asj75T4aa/lK9iVaZG/lG6c2jveHN18lzWdCg0QZJlyC7P7TNOUFM3RMqluPwQlbbfZUrLtd48TAiDc4wFKWO7TDUCSa5WpMtrEJ+XehIiyJf/ggme69e25kCdvAfmjS1LySuryKU20T2aJUnsJrSuKsMpd8u88UGHIwETidk+aUTWXTRaTrmxr+6Ruozw4ARr4RfELJ8ZtxDVCXIqc3VkSIA525IGrP5kuI7dzc3KRQq6fe4lVn9dwq1kTnVVn/MBKV19Bckc28yqF4=
