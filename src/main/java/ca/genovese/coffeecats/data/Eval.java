@@ -75,6 +75,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * eager (Now) instance.
    *
    * @param f the function to apply to the result of the current computation
+   * @param &lt;B&gt; output type of the applied function
    * @return A new computation which includes the application of f
    */
   @Public
@@ -95,6 +96,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * eager (Now) instance.
    *
    * @param f the function to apply to the result of the current computation
+   * @param &lt;B&gt; output type of the applied function
    * @return A new computation which includes the application of f
    */
   default <B> Eval<B> flatMap(Function<A, Eval<B>> f) {
