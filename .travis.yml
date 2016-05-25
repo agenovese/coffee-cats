@@ -18,7 +18,7 @@ addons:
     notification_email: angelo@genovese.ca
     build_command_prepend: mvn clean
     build_command: mvn -DskipTests=true compile
-    branch_pattern: coverity_scan
+    branch_pattern: master
 
 cache:
   directories:
