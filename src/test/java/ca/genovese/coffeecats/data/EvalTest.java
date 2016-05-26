@@ -7,7 +7,7 @@ import org.junit.gen5.api.DisplayName;
 import org.junit.gen5.api.Test;
 
 public class EvalTest {
-  int execCount;
+  private int execCount;
 
   @BeforeEach
   public void resetCount() {
@@ -19,6 +19,8 @@ public class EvalTest {
   public void testNowEval() {
 
     Eval<Integer> i = Eval.now(() -> {execCount++; return 4;});
+
+    assertSame(i, i.memoize());
 
     i.value();
     i.value();
@@ -40,6 +42,8 @@ public class EvalTest {
   public void testLaterEval() {
 
     Eval<Integer> i = Eval.later(() -> {execCount++; return 4;});
+
+    assertSame(i, i.memoize());
 
     i.value();
     i.value();
@@ -68,13 +72,21 @@ public class EvalTest {
 
     assertEquals(3, execCount);
 
+    Eval<Integer> m = i.memoize();
+
+    m.value();
+    m.value();
+    m.value();
+
+    assertEquals(4, execCount);
+
     i = i.map(x -> {execCount++; return x + 1;});
 
-    assertEquals(3, execCount);
+    assertEquals(4, execCount);
 
     i.value();
 
-    assertEquals(5, execCount);
+    assertEquals(6, execCount);
 
     i = i.memoize();
 
@@ -82,6 +94,6 @@ public class EvalTest {
     assertEquals(5, i.value().intValue());
     assertEquals(5, i.value().intValue());
 
-    assertEquals(7, execCount);
+    assertEquals(8, execCount);
   }
 }
