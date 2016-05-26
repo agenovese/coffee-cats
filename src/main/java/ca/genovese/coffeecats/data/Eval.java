@@ -40,6 +40,9 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
   static <A> Eval<A> now(A a) {
     return new Now<>(a);
   }
+  static <A> Eval<A> now(Supplier<A> a) {
+    return now(a.get());
+  }
 
   static <A> Eval<A> later(Supplier<A> a) {
     return new Later<>(a);
