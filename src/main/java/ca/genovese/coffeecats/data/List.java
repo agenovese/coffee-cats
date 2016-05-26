@@ -1,6 +1,5 @@
 package ca.genovese.coffeecats.data;
 
-import ca.genovese.coffeecats.Public;
 import ca.genovese.coffeecats.kind.Kind;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -8,9 +7,7 @@ import lombok.ToString;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-@Public
 public interface List<A> extends Iterable<A>, Kind<List, A> {
-  @Public
   @SafeVarargs
   static <A> List<A> create(A... as) {
     List<A> list = new Nil<>();
@@ -22,7 +19,6 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
     return list;
   }
 
-  @Public
   static <A> List<A> cons(A a, List<A> as) {
     return new Cons<>(a, as);
   }

@@ -1,6 +1,5 @@
 package ca.genovese.coffeecats.data;
 
-import ca.genovese.coffeecats.Public;
 import ca.genovese.coffeecats.kind.Kind;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -10,9 +9,8 @@ import java.util.NoSuchElementException;
 
 import static ca.genovese.coffeecats.data.None.NONE;
 
-@Public
 public interface Option<A> extends Kind<Option, A>, Iterable<A> {
-  @Public
+  
   static <A> Option<A> of(A a) {
     return a == null ? NONE : some(a);
   }
@@ -30,7 +28,6 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
 
   A get();
 
-  @Public
   default A getOrElse(A a) {
     return isDefined() ? get() : a;
   }

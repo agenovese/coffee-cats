@@ -1,6 +1,5 @@
 package ca.genovese.coffeecats.data;
 
-import ca.genovese.coffeecats.Public;
 import ca.genovese.coffeecats.kind.Kind;
 
 import java.io.Serializable;
@@ -37,18 +36,15 @@ import java.util.function.Supplier;
  * Eval instance -- this can defeat the trampolining and lead to stack
  * overflows.
  */
-@Public
 public interface Eval<A> extends Serializable, Kind<Eval, A> {
   static <A> Eval<A> now(A a) {
     return new Now<>(a);
   }
 
-  @Public
   static <A> Eval<A> later(Supplier<A> a) {
     return new Later<>(a);
   }
 
-  @Public
   static <A> Eval<A> always(Supplier<A> a) {
     return new Always<>(a);
   }
@@ -78,7 +74,6 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param &lt;B&gt; output type of the applied function
    * @return A new computation which includes the application of f
    */
-  @Public
   default <B> Eval<B> map(Function<A, B> f) {
     return flatMap((A a) -> now(f.apply(a)));
   }
@@ -112,7 +107,6 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    *
    * @return A new, memoizing, Eval that is equivalent to the current Eval
    */
-  @Public
   Eval<A> memoize();
 }
 
