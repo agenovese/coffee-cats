@@ -12,7 +12,7 @@ import static ca.genovese.coffeecats.data.None.NONE;
 public interface Option<A> extends Kind<Option, A>, Iterable<A> {
   
   static <A> Option<A> of(A a) {
-    return a == null ? NONE : some(a);
+    return a == null ? none() : some(a);
   }
 
   static <A> Option<A> some(A a) {
