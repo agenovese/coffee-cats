@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 
 public interface List<A> extends Iterable<A>, Kind<List, A> {
   @SafeVarargs
-  static <A> List<A> create(A... as) {
+  static <A> List<A> of(A... as) {
     List<A> list = new Nil<>();
 
     for (int i = as.length - 1; i >= 0; i--) {
@@ -25,13 +25,23 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
 
   @SuppressWarnings("unused")
   default int length() {
-    Eval<Integer> length = Eval.now(0);
+    int length = 0;
 
     for (A a : this) {
-      length = length.flatMap(i -> Eval.later(() -> i + 1));
-     }
+      length++;
+    }
 
-    return length.value();
+    return length;
+  }
+
+  default List<A> reverse() {
+    List<A> result = of();
+
+    for (A a : this) {
+      result = cons(a, result);
+    }
+
+    return result;
   }
 
   A getHead();

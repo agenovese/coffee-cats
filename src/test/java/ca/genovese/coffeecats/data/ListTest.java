@@ -1,17 +1,17 @@
 package ca.genovese.coffeecats.data;
 
-import static org.junit.gen5.api.Assertions.*;
-
 import org.junit.gen5.api.DisplayName;
 import org.junit.gen5.api.Test;
 
 import java.util.NoSuchElementException;
 
+import static org.junit.gen5.api.Assertions.*;
+
 public class ListTest {
   @Test
   @DisplayName("Creating an empty List ")
   public void testListCreateEmptyList() {
-    List<Integer> is = List.create();
+    List<Integer> is = List.of();
 
     //noinspection ThrowableResultOfMethodCallIgnored
     assertAll("address",
@@ -30,13 +30,13 @@ public class ListTest {
   @Test
   @DisplayName("Creating a non-empty List ")
   public void testListCreateNonEmptyList() {
-    List<Integer> is = List.create(1, 2, 3);
+    List<Integer> is = List.of(1, 2, 3);
 
     //noinspection ThrowableResultOfMethodCallIgnored
     assertAll("address",
         () -> assertEquals(3, is.length()),
         () -> assertEquals(1, is.getHead().intValue()),
-        () -> assertEquals(List.create(2, 3), is.getTail()),
+        () -> assertEquals(List.of(2, 3), is.getTail()),
         () -> assertTrue(() -> is.iterator().hasNext()),
         () -> assertEquals(1, is.iterator().next().intValue())
     );
