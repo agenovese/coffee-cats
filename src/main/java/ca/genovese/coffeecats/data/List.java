@@ -44,6 +44,16 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
     return result;
   }
 
+  default List<A> append(List<A> as) {
+    List<A> result = as;
+
+    for (A a : reverse()) {
+      result = cons(a, result);
+    }
+
+    return result;
+  }
+
   A getHead();
 
   List<A> getTail();
