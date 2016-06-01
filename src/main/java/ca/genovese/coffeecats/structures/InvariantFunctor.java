@@ -5,7 +5,7 @@ import ca.genovese.coffeecats.kind.Kind;
 
 import java.util.function.Function;
 
-public interface InvariantFunctor<F extends Kind> {
+public interface InvariantFunctor<F> {
   <A, B> Kind<F, B> imap(Kind<F, A> fa, Function<A, B> f, Function<B, A> g);
 
   /**
@@ -15,7 +15,7 @@ public interface InvariantFunctor<F extends Kind> {
     return new Composite<>(this, gg);
   }
 
-  class Composite<F extends Kind, G extends Kind> implements InvariantFunctor<Kind<F, G>> {
+  class Composite<F, G> implements InvariantFunctor<Kind<F, G>> {
     private final InvariantFunctor<F> F;
     private final InvariantFunctor<G> G;
 
