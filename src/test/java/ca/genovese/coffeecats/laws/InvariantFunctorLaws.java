@@ -14,7 +14,7 @@ import static org.junit.gen5.api.Assertions.assertEquals;
  *
  * @see ca.genovese.coffeecats.structures.InvariantFunctor
  */
-public interface InvariantFunctorLaws<F extends Kind> {
+public interface InvariantFunctorLaws<F> {
   @Test
   default <A> void invariantIdentity(InvariantFunctor<F> F, Kind<F, A> fa) {
     assertEquals(fa, F.imap(fa, Function.identity(), Function.identity()));

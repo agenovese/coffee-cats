@@ -21,12 +21,12 @@ public class ListInstanceProvider implements ParameterResolver {
 
   private boolean isListKind(Parameter parameter) {
     return parameter.getType().equals(Kind.class)
-        && getTypeArgName(parameter, 0).equals("F");
+        && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("List"));
   }
 
   private boolean isListStructure(Parameter parameter) {
     return parameter.getType().isAssignableFrom(ListInstance.class)
-        && getTypeArgName(parameter, 0).equals("F");
+        && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("List"));
   }
 
   private String getTypeArgName(Parameter parameter, int index) {
