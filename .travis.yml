@@ -10,16 +10,6 @@ notifications:
     on_failure: always
     on_start: never
 
-addons:
-  coverity_scan:
-    project:
-      name: agenovese/coffee-cats
-      description: Build submitted via Travis CI
-    notification_email: angelo@genovese.ca
-    build_command_prepend: mvn clean
-    build_command: mvn -DskipTests=true compile
-    branch_pattern: master
-
 cache:
   directories:
   - "$HOME/.m2/repository"
