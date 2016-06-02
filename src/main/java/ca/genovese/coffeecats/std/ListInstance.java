@@ -8,13 +8,13 @@ import java.util.function.Function;
 
 public class ListInstance implements CovariantFunctor<List> {
   @Override
-  public <A, B> Kind<List, B> map(Kind<List, A> fa, Function<A, B> f) {
+  public <A, B> Kind<List, B> map(final Kind<List, A> fa, final Function<A, B> f) {
     List<B> result = List.of();
 
     @SuppressWarnings("unchecked")
-    List<A> realType = fa.getRealType().reverse();
+    final List<A> realType = fa.getRealType().reverse();
 
-    for (A a : realType) {
+    for (final A a : realType) {
       result = List.cons(f.apply(a), result);
     }
 

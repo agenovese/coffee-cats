@@ -12,7 +12,7 @@ import static ca.genovese.coffeecats.data.Option.some;
 public class OptionInstance implements CovariantFunctor<Option> {
   @Override
   @SuppressWarnings("unchecked")
-  public <A, B> Kind<Option, B> map(Kind<Option, A> fa, Function<A, B> f) {
+  public <A, B> Kind<Option, B> map(final Kind<Option, A> fa, final Function<A, B> f) {
     return fa.getRealType().isDefined() ? some(f.apply((A) fa.getRealType().get())) : none();
   }
 }

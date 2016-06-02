@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 
 public interface List<A> extends Iterable<A>, Kind<List, A> {
   @SafeVarargs
-  static <A> List<A> of(A... as) {
+  static <A> List<A> of(final A... as) {
     List<A> list = new Nil<>();
 
     for (int i = as.length - 1; i >= 0; i--) {
@@ -19,7 +19,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
     return list;
   }
 
-  static <A> List<A> cons(A a, List<A> as) {
+  static <A> List<A> cons(final A a, final List<A> as) {
     return new Cons<>(a, as);
   }
 
@@ -44,7 +44,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
     return result;
   }
 
-  default List<A> append(List<A> as) {
+  default List<A> append(final List<A> as) {
     List<A> result = as;
 
     for (A a : reverse()) {
@@ -65,7 +65,7 @@ final class Cons<A> implements List<A> {
   private final A head;
   private final List<A> tail;
 
-  Cons(A head, List<A> tail) {
+  Cons(final A head, final List<A> tail) {
     this.head = head;
     this.tail = tail;
   }
@@ -88,7 +88,7 @@ final class Cons<A> implements List<A> {
 final class ListIterator<A> implements Iterator<A> {
   private List<A> list;
 
-  ListIterator(List<A> list) {
+  ListIterator(final List<A> list) {
     this.list = list;
   }
 
@@ -100,7 +100,7 @@ final class ListIterator<A> implements Iterator<A> {
   @Override
   public A next() {
     if (list instanceof Cons) {
-      A head = list.getHead();
+      final A head = list.getHead();
       list = list.getTail();
       return head;
     } else {

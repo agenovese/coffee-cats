@@ -77,7 +77,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param &lt;B&gt; output type of the applied function
    * @return A new computation which includes the application of f
    */
-  default <B> Eval<B> map(Function<A, B> f) {
+  default <B> Eval<B> map(final Function<A, B> f) {
     return flatMap((A a) -> now(f.apply(a)));
   }
 
@@ -97,7 +97,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param &lt;B&gt; output type of the applied function
    * @return A new computation which includes the application of f
    */
-  default <B> Eval<B> flatMap(Function<A, Eval<B>> f) {
+  default <B> Eval<B> flatMap(final Function<A, Eval<B>> f) {
     return new Compute<>(() -> this, f);
   }
 
@@ -124,7 +124,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
 final class Now<A> implements Eval<A> {
   private final A value;
 
-  Now(A value) {
+  Now(final A value) {
     this.value = value;
   }
 
@@ -157,7 +157,7 @@ final class Later<A> implements Eval<A> {
   private Supplier<A> thunk;
   private Option<A> value = Option.none();
 
-  Later(Supplier<A> thunk) {
+  Later(final Supplier<A> thunk) {
     this.thunk = thunk;
   }
 
@@ -189,7 +189,7 @@ final class Later<A> implements Eval<A> {
 final class Always<A> implements Eval<A> {
   private final Supplier<A> f;
 
-  Always(Supplier<A> f) {
+  Always(final Supplier<A> f) {
     this.f = f;
   }
 
@@ -221,14 +221,14 @@ class Compute<A> implements Eval<A> {
   private final Supplier<Eval> start;
   private final Function run;
 
-  Compute(Supplier<Eval> start, Function run) {
+  Compute(final Supplier<Eval> start, final Function run) {
     this.start = start;
     this.run = run;
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public <B> Eval<B> flatMap(Function<A, Eval<B>> f) {
+  public <B> Eval<B> flatMap(final Function<A, Eval<B>> f) {
     return new Compute<>(start,
         s -> new Compute<>(() -> (Eval)this.run.apply(s), f));
   }
@@ -240,7 +240,7 @@ class Compute<A> implements Eval<A> {
 
   @SuppressWarnings("unchecked")
   public A value() {
-    LinkedList<Function> fs = new LinkedList<>();
+    final LinkedList<Function> fs = new LinkedList<>();
     Eval curr = this;
     boolean cont = true;
 
@@ -258,7 +258,7 @@ class Compute<A> implements Eval<A> {
         if (fs.isEmpty()) {
           cont = false;
         } else {
-          Function f = fs.pop();
+          final Function f = fs.pop();
           curr = (Eval) f.apply(curr.value());
         }
       }

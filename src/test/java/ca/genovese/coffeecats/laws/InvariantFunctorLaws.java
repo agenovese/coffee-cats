@@ -16,17 +16,17 @@ import static org.junit.gen5.api.Assertions.assertEquals;
  */
 public interface InvariantFunctorLaws<F> {
   @Test
-  default <A> void invariantIdentity(InvariantFunctor<F> F, Kind<F, A> fa) {
-    assertEquals(fa, F.imap(fa, Function.identity(), Function.identity()));
+  default <A> void invariantIdentity(InvariantFunctor<F> f, Kind<F, A> fa) {
+    assertEquals(fa, f.imap(fa, Function.identity(), Function.identity()));
   }
 
   @Test
-  default <A, B, C> void invariantComposition(InvariantFunctor<F> F,
+  default <A, B, C> void invariantComposition(InvariantFunctor<F> f,
                                               Kind<F, A> fa,
                                               Function<A, B> f1,
                                               Function<B, A> f2,
                                               Function<B, C> g1,
                                               Function<C, B> g2) {
-    assertEquals(F.imap(F.imap(fa, f1, f2), g1, g2), F.imap(fa, g1.compose(f1), f2.compose(g2)));
+    assertEquals(f.imap(f.imap(fa, f1, f2), g1, g2), f.imap(fa, g1.compose(f1), f2.compose(g2)));
   }
 }

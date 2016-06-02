@@ -11,11 +11,11 @@ import static ca.genovese.coffeecats.data.None.NONE;
 
 public interface Option<A> extends Kind<Option, A>, Iterable<A> {
   
-  static <A> Option<A> of(A a) {
+  static <A> Option<A> of(final A a) {
     return a == null ? none() : some(a);
   }
 
-  static <A> Option<A> some(A a) {
+  static <A> Option<A> some(final A a) {
     return new Some<>(a);
   }
 
@@ -28,7 +28,7 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
 
   A get();
 
-  default A getOrElse(A a) {
+  default A getOrElse(final A a) {
     return isDefined() ? get() : a;
   }
 
@@ -42,7 +42,7 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
 class Some<A> implements Option<A> {
   private final A a;
 
-  Some(A a) {
+  Some(final A a) {
     this.a = a;
   }
 
@@ -81,7 +81,7 @@ class OptionIterator<A> implements Iterator<A> {
   private final Option<A> opt;
   private boolean hasNext;
 
-  OptionIterator(Option<A> opt) {
+  OptionIterator(final Option<A> opt) {
     this.opt = opt;
     hasNext = opt.isDefined();
   }
