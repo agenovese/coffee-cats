@@ -1,11 +1,11 @@
 package ca.genovese.coffeecats.data;
 
-import static org.junit.gen5.api.Assertions.*;
-
 import org.junit.gen5.api.DisplayName;
 import org.junit.gen5.api.Test;
 
 import java.util.NoSuchElementException;
+
+import static org.junit.gen5.api.Assertions.*;
 
 public class OptionTest {
   @Test

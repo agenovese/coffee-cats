@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-import sys
-import os
 import os.path
+import sys
 import xml.dom.minidom
 
 if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":

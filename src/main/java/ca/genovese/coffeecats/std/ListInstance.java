@@ -3,7 +3,6 @@ package ca.genovese.coffeecats.std;
 import ca.genovese.coffeecats.data.List;
 import ca.genovese.coffeecats.kind.Kind;
 import ca.genovese.coffeecats.structures.CovariantFunctor;
-import ca.genovese.coffeecats.structures.InvariantFunctor;
 
 import java.util.function.Function;
 
