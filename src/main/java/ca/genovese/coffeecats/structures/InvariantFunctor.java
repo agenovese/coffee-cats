@@ -11,7 +11,7 @@ public interface InvariantFunctor<F> {
   /**
    * Compose 2 invariant Functors F and G to get a new Invariant Functor for F[G[_]].
    */
-  default <G> InvariantFunctor<Kind<F, Kind<G, ?>>> compose(InvariantFunctor<Kind<G, ?>> gg) {
+  default <G> InvariantFunctor<Kind<F, G>> compose(InvariantFunctor<G> gg) {
     return new Composite<>(this, gg);
   }
 
