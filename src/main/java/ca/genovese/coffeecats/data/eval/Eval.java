@@ -34,20 +34,53 @@ import java.util.function.Supplier;
  * Eval instances whose computation involves calling .value on another
  * Eval instance -- this can defeat the trampolining and lead to stack
  * overflows.
+ *
+ * @param <A> The type returned by this Eval
  */
 public interface Eval<A> extends Serializable, Kind<Eval, A> {
+  /**
+   * Return a new Computation which calculates it's value strictly. Basically equivalent to a variable.
+   *
+   * @param a The value to use as the result of this Computation
+   * @param <A> The type returned by the new Eval
+   * @return The new Eval
+   */
   static <A> Eval<A> now(A a) {
     return new Now<>(a);
   }
 
+  /**
+   * Return a new Computation which calculates it's value once, strictly.
+   * Basically equivalent to a variable in java or a var or val in scala.
+   *
+   * @param a The function to use to calculate the result of this Computation
+   * @param <A> The type returned by the new Eval
+   * @return The new Eval
+   */
   static <A> Eval<A> now(Supplier<A> a) {
     return now(a.get());
   }
 
+  /**
+   * Return a new Computation which calculates it's value once, lazily.
+   * Basically equivalent to a lazy val in scala.
+   *
+   * @param a The function to use to calculate the result of this Computation
+   * @param <A> The type returned by the new Eval
+   * @return The new Eval
+   */
   static <A> Eval<A> later(Supplier<A> a) {
     return new Later<>(a);
   }
 
+  /**
+   * Return a new Computation which calculates it's value on each invocation.
+   * Basically equivalent to a method call.
+   *
+   * @param a The function to use to calculate the result of this Computation
+   * @param <A> The type returned by the new Eval
+   * @return The new Eval
+   */
   static <A> Eval<A> always(Supplier<A> a) {
     return new Always<>(a);
   }
@@ -73,8 +106,8 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
    *
-   * @param f         the function to apply to the result of the current computation
-   * @param &lt;B&gt; output type of the applied function
+   * @param f   the function to apply to the result of the current computation
+   * @param <B> output type of the applied function
    * @return A new computation which includes the application of f
    */
   default <B> Eval<B> map(final Function<A, B> f) {
@@ -93,8 +126,8 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
    *
-   * @param f         the function to apply to the result of the current computation
-   * @param &lt;B&gt; output type of the applied function
+   * @param f   the function to apply to the result of the current computation
+   * @param <B> output type of the computation returned by the applied function
    * @return A new computation which includes the application of f
    */
   default <B> Eval<B> flatMap(final Function<A, Eval<B>> f) {

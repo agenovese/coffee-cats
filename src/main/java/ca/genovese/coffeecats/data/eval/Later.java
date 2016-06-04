@@ -17,15 +17,32 @@ import java.util.function.Supplier;
  * Once Later has been evaluated, the closure (and any values captured
  * by the closure) will not be retained, and will be available for
  * garbage collection.
+ *
+ * @param <A> The type returned by this Eval
  */
 final class Later<A> implements Eval<A> {
   private Supplier<A> thunk;
   private Option<A> value = Option.none();
 
+  /**
+   * Return a new Computation which calculates it's value once, lazily.
+   * Basically equivalent to a lazy val in scala.
+   *
+   * @param thunk The function to use to calculate the result of this Computation
+   */
   Later(final Supplier<A> thunk) {
     this.thunk = thunk;
   }
 
+  /**
+   * Evaluate the computation and return an A value.
+   * <p>
+   * For lazy instances (Later, Always), any necessary computation
+   * will be performed at this point. For eager instances (Now), a
+   * value will be immediately returned.
+   *
+   * @return The result of the computation
+   */
   @Override
   public A value() {
     if (!value.isDefined()) {
@@ -35,6 +52,15 @@ final class Later<A> implements Eval<A> {
     return value.get();
   }
 
+  /**
+   * Ensure that the result of the computation (if any) will be
+   * memoized.
+   * <p>
+   * Practically, this means that when called on an Always&lt;A&gt; a
+   * Later&lt;A&gt; with an equivalent computation will be returned.
+   *
+   * @return A new, memoizing, Eval that is equivalent to the current Eval
+   */
   @Override
   public Eval<A> memoize() {
     return this;
