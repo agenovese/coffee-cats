@@ -48,6 +48,8 @@ public abstract class AbstractInstanceProvider<S, F> implements ParameterResolve
       return instance();
     } else if (isKind(parameter) && getTypeArgName(parameter, 1).equals("A")) {
       return kind();
-    } else return null;
+    } else {
+      return null;
+    }
   }
 }

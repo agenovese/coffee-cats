@@ -218,7 +218,7 @@ final class Always<A> implements Eval<A> {
  * trampoline are not exposed. This allows a slightly more efficient
  * implementation of the .value method.
  */
-class Compute<A> implements Eval<A> {
+final class Compute<A> implements Eval<A> {
   private final Supplier<Eval> start;
   private final Function run;
 

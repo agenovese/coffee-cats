@@ -43,6 +43,8 @@ public class OptionInstanceProvider implements ParameterResolver {
       return new OptionInstance();
     } else if (isOptionKind(parameter) && getTypeArgName(parameter, 1).equals("A")) {
       return Option.of(1);
-    } else return null;
+    } else {
+      return null;
+    }
   }
 }

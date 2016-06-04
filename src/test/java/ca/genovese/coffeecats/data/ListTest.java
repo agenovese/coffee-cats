@@ -10,7 +10,7 @@ import static org.junit.gen5.api.Assertions.*;
 public final class ListTest {
   @Test
   @DisplayName("Creating an empty List ")
-  final public void testListCreateEmptyList() {
+  public void testListCreateEmptyList() {
     final List<Integer> is = List.of();
 
     //noinspection ThrowableResultOfMethodCallIgnored
@@ -29,7 +29,7 @@ public final class ListTest {
 
   @Test
   @DisplayName("Creating a non-empty List ")
-  final public void testListCreateNonEmptyList() {
+  public void testListCreateNonEmptyList() {
     final List<Integer> is = List.of(1, 2, 3);
 
     assertAll("address",

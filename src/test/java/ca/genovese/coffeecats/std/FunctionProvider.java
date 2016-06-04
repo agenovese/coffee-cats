@@ -63,6 +63,8 @@ public class FunctionProvider implements ParameterResolver {
       return (Function<String, Long>) (s) -> (long) s.length();
     } else if (isFunctionCB(parameter)) {
       return (Function<Long, String>) Object::toString;
-    } else return null;
+    } else {
+      return null;
+    }
   }
 }

@@ -6,7 +6,7 @@ import ca.genovese.coffeecats.structures.CovariantFunctor;
 
 import java.util.function.Function;
 
-public class ListInstance implements CovariantFunctor<List> {
+final public class ListInstance implements CovariantFunctor<List> {
   @Override
   public <A, B> Kind<List, B> map(final Kind<List, A> fa, final Function<A, B> f) {
     List<B> result = List.of();

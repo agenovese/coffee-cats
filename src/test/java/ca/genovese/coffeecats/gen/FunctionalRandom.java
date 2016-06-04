@@ -22,11 +22,12 @@ public class FunctionalRandom {
 
   public Tuple2<Integer, FunctionalRandom> nextInt() {
     return value.updateAndGet((v) -> {
-      if (v != null) return v;
-      else {
+      if (v != null) {
         final byte[] seed = new byte[seedLength];
         rnd.nextBytes(seed);
         return new Tuple2<>(rnd.nextInt(), new FunctionalRandom(seedLength, new SecureRandom(seed)));
+      } else {
+        return v;
       }
     });
   }

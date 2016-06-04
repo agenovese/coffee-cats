@@ -43,6 +43,8 @@ public class ListInstanceProvider implements ParameterResolver {
       return new ListInstance();
     } else if (isListKind(parameter) && getTypeArgName(parameter, 1).equals("A")) {
       return List.of(1, 2, 3, 4);
-    } else return null;
+    } else {
+      return null;
+    }
   }
 }

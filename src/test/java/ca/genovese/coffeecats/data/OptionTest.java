@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.gen5.api.Assertions.*;
 
-public class OptionTest {
+final public class OptionTest {
   @Test
   @DisplayName("Creating a None")
   public void testOptionCreateNone() {
