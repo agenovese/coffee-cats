@@ -5,7 +5,7 @@ import ca.genovese.coffeecats.data.tuple.Tuple2;
 import java.security.SecureRandom;
 import java.util.concurrent.atomic.AtomicReference;
 
-final public class FunctionalRandom {
+public final class FunctionalRandom {
   private static final int DEFAULT_SEED_LENGTH = 20;
   private final int seedLength;
   private final SecureRandom rnd;

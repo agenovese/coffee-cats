@@ -11,7 +11,7 @@ import java.util.function.Function;
 /**
  * @since 5.0
  */
-public class FunctionProvider implements ParameterResolver {
+public final class FunctionProvider implements ParameterResolver {
 
   @Override
   public boolean supports(final Parameter parameter,

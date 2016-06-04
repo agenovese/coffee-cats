@@ -7,7 +7,7 @@ import org.junit.gen5.api.Test;
 import static org.junit.gen5.api.Assertions.assertEquals;
 import static org.junit.gen5.api.Assertions.assertSame;
 
-public class EvalTest {
+public final class EvalTest {
   private int execCount;
 
   @BeforeEach

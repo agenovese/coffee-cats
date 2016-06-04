@@ -19,7 +19,7 @@ public abstract class AbstractInstanceProvider<S, F> implements ParameterResolve
   protected abstract Class<S> type();
 
   @Override
-  public boolean supports(final Parameter parameter,
+  public final boolean supports(final Parameter parameter,
                           final Optional<Object> target,
                           final ExtensionContext extensionContext) {
     return isInstance(parameter) || isKind(parameter);
@@ -41,7 +41,7 @@ public abstract class AbstractInstanceProvider<S, F> implements ParameterResolve
 
   @Override
   @SuppressWarnings("unchecked")
-  public Object resolve(final Parameter parameter,
+  public final Object resolve(final Parameter parameter,
                         final Optional<Object> target,
                         final ExtensionContext extensionContext) {
     if (isInstance(parameter)) {
