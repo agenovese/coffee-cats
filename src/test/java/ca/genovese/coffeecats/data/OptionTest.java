@@ -11,7 +11,7 @@ public class OptionTest {
   @Test
   @DisplayName("Creating a None")
   public void testOptionCreateNone() {
-    Option<Integer> i = Option.of(null);
+    final Option<Integer> i = Option.of(null);
 
     //noinspection ThrowableResultOfMethodCallIgnored
     assertAll(
@@ -31,7 +31,7 @@ public class OptionTest {
   @Test
   @DisplayName("Creating a Some")
   public void testOptionCreateSome() {
-    Option<Integer> i = Option.of(1);
+    final Option<Integer> i = Option.of(1);
 
     assertAll(
         () -> assertTrue(i.isDefined(), "isDefined should return true for Some"),

@@ -42,9 +42,7 @@ public class CovariantFunctorTest {
   private static class ListOfOptionProvider extends AbstractInstanceProvider<CovariantFunctor, Kind<List, Option>> {
     @Override
     protected CovariantFunctor instance() {
-      CovariantFunctor<Option> optionInstance = new OptionInstance();
-      CovariantFunctor<List> listInstance = new ListInstance();
-      return listInstance.composeWithFunctor(optionInstance);
+      return new ListInstance().composeWithFunctor(new OptionInstance());
     }
 
     @Override
