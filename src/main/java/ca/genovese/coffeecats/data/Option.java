@@ -40,10 +40,10 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
 @ToString
 @EqualsAndHashCode
 class Some<A> implements Option<A> {
-  private final A a;
+  private final A value;
 
-  Some(final A a) {
-    this.a = a;
+  Some(final A value) {
+    this.value = value;
   }
 
   @Override
@@ -53,7 +53,7 @@ class Some<A> implements Option<A> {
 
   @Override
   public A get() {
-    return a;
+    return value;
   }
 }
 

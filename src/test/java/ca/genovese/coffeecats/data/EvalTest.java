@@ -27,15 +27,15 @@ public class EvalTest {
     i.value();
     i.value();
 
-    assertEquals(1, execCount);
+    assertEquals(1, execCount, "Now Eval's should only execute their supplier on construction");
 
     i = i.map(x -> {execCount++; return x + 1;});
 
-    assertEquals(1, execCount);
+    assertEquals(1, execCount, "Eval's should execute mapped functions lazily");
 
     i.value();
 
-    assertEquals(2, execCount);
+    assertEquals(2, execCount, "Eval's should execute mapped function on value access");
   }
 
   @Test
@@ -46,19 +46,21 @@ public class EvalTest {
 
     assertSame(i, i.memoize());
 
+    assertEquals(0, execCount, "Later Eval's should only execute their supplier on first access");
+
     i.value();
     i.value();
     i.value();
 
-    assertEquals(1, execCount);
+    assertEquals(1, execCount, "Later Eval's should only execute their supplier on first access");
 
     i = i.map(x -> {execCount++; return x + 1;});
 
-    assertEquals(1, execCount);
+    assertEquals(1, execCount, "Eval's should execute mapped functions lazily");
 
     i.value();
 
-    assertEquals(2, execCount);
+    assertEquals(2, execCount, "Eval's should execute mapped function on value access");
   }
 
   @Test
@@ -71,7 +73,7 @@ public class EvalTest {
     i.value();
     i.value();
 
-    assertEquals(3, execCount);
+    assertEquals(3, execCount, "Always Eval's should execute their supplier for each value access");
 
     Eval<Integer> m = i.memoize();
 
@@ -79,15 +81,15 @@ public class EvalTest {
     m.value();
     m.value();
 
-    assertEquals(4, execCount);
+    assertEquals(4, execCount, "Memoized Always Eval's should behave like a later eval");
 
     i = i.map(x -> {execCount++; return x + 1;});
 
-    assertEquals(4, execCount);
+    assertEquals(4, execCount, "Eval's should execute mapped functions lazily");
 
     i.value();
 
-    assertEquals(6, execCount);
+    assertEquals(6, execCount, "Eval's should execute mapped function on value access");
 
     i = i.memoize();
 
@@ -95,6 +97,7 @@ public class EvalTest {
     assertEquals(5, i.value().intValue());
     assertEquals(5, i.value().intValue());
 
-    assertEquals(8, execCount);
+    // TODO - why is accessing the value of a memoized eval incrementing the counter?
+    assertEquals(8, execCount, "WTF?");
   }
 }

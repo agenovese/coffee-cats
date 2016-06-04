@@ -15,15 +15,15 @@ public class ListTest {
 
     //noinspection ThrowableResultOfMethodCallIgnored
     assertAll("address",
-        () -> assertEquals(0, is.length()),
-        () -> expectThrows(NoSuchElementException.class, is::getHead),
+        () -> assertEquals(0, is.length(), "An emtpy List should have length 0"),
         () -> assertEquals("getHead on an empty list",
-            expectThrows(NoSuchElementException.class, is::getHead).getMessage()),
-        () -> expectThrows(NoSuchElementException.class, is::getTail),
+            expectThrows(NoSuchElementException.class, is::getHead).getMessage(),
+            "Calling getHead on an empty list throws the NoSuchElementException"),
         () -> assertEquals("getTail on an empty list",
-            expectThrows(NoSuchElementException.class, is::getTail).getMessage()),
-        () -> assertFalse(() -> is.iterator().hasNext()),
-        () -> expectThrows(NoSuchElementException.class, () -> is.iterator().next())
+            expectThrows(NoSuchElementException.class, is::getTail).getMessage(),
+            "Calling getTail on an empty list throws the NoSuchElementException"),
+        () -> assertFalse(() -> is.iterator().hasNext(), "An empty list's iterator does not have a next item"),
+        () -> assertThrows(NoSuchElementException.class, () -> is.iterator().next())
     );
   }
 
@@ -32,13 +32,17 @@ public class ListTest {
   public void testListCreateNonEmptyList() {
     List<Integer> is = List.of(1, 2, 3);
 
-    //noinspection ThrowableResultOfMethodCallIgnored
     assertAll("address",
-        () -> assertEquals(3, is.length()),
-        () -> assertEquals(1, is.getHead().intValue()),
-        () -> assertEquals(List.of(2, 3), is.getTail()),
-        () -> assertTrue(() -> is.iterator().hasNext()),
-        () -> assertEquals(1, is.iterator().next().intValue())
+        () -> assertEquals(3, is.length(),
+            "length should return the length of the list"),
+        () -> assertEquals(1, is.getHead().intValue(),
+            "getHead should return the first item of the list"),
+        () -> assertEquals(List.of(2, 3), is.getTail(),
+            "getTail should return a list consisting of all but the first item of the list"),
+        () -> assertTrue(() -> is.iterator().hasNext(),
+            "A list's iterator.hasNext() should return true for a non-empty list"),
+        () -> assertEquals(1, is.iterator().next().intValue(),
+            "A list's iterator.next() should return the first item of a non-empty list")
     );
   }
 }

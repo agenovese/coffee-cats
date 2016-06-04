@@ -15,13 +15,15 @@ public class OptionTest {
 
     //noinspection ThrowableResultOfMethodCallIgnored
     assertAll(
-        () -> assertFalse(i.isDefined()),
-        () -> expectThrows(NoSuchElementException.class, i::get),
-        () -> assertEquals(1, i.getOrElse(1).intValue()),
-        () -> assertEquals("None()", i.toString()),
+        () -> assertFalse(i.isDefined(), "isDefined should return false for None"),
+        () -> assertEquals(1, i.getOrElse(1).intValue(),
+            "Calling getOrElse on a none value returns the provided default"),
+        () -> assertEquals("None()", i.toString(), "None.toString returns None()"),
         () -> assertEquals("get() called on a None",
-            expectThrows(NoSuchElementException.class, i::get).getMessage()),
-        () -> assertFalse(() -> i.iterator().hasNext()),
+            expectThrows(NoSuchElementException.class, i::get).getMessage(),
+            "Calling get on None throws the NoSuchElementException"),
+        () -> assertFalse(() -> i.iterator().hasNext(),
+            "hasNext called on None.iterator should return false"),
         () -> expectThrows(NoSuchElementException.class, () -> i.iterator().next())
     );
   }
@@ -31,14 +33,18 @@ public class OptionTest {
   public void testOptionCreateSome() {
     Option<Integer> i = Option.of(1);
 
-    //noinspection ThrowableResultOfMethodCallIgnored
     assertAll(
-        () -> assertTrue(i.isDefined()),
-        () -> assertEquals(1, i.getOrElse(10).intValue()),
-        () -> assertEquals(1, i.get().intValue()),
-        () -> assertEquals("Some(a=1)", i.toString()),
-        () -> assertTrue(i.iterator().hasNext()),
-        () -> assertEquals(1, i.iterator().next().intValue())
+        () -> assertTrue(i.isDefined(), "isDefined should return true for Some"),
+        () -> assertEquals(1, i.getOrElse(10).intValue(),
+            "Calling getOrElse on a Some value returns the value from the Some"),
+        () -> assertEquals(1, i.get().intValue(),
+            "Calling get on a Some value returns the value from the Some"),
+        () -> assertEquals("Some(value=1)", i.toString(),
+            "Calling toString on a Some value"),
+        () -> assertTrue(i.iterator().hasNext(),
+            "Calling iterator.hasNext on a Some value should return true"),
+        () -> assertEquals(1, i.iterator().next().intValue(),
+            "Calling iterator.next on a Some value should return the Some value")
     );
   }
 }
