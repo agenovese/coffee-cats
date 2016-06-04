@@ -1,7 +1,7 @@
 package ca.genovese.coffeecats.gen;
 
-import ca.genovese.coffeecats.data.List;
-import ca.genovese.coffeecats.data.Option;
+import ca.genovese.coffeecats.data.list.List;
+import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.data.tuple.Tuple2;
 import ca.genovese.coffeecats.kind.Kind;
 

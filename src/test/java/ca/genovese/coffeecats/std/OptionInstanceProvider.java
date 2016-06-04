@@ -1,6 +1,6 @@
 package ca.genovese.coffeecats.std;
 
-import ca.genovese.coffeecats.data.Option;
+import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.kind.Kind;
 import org.junit.gen5.api.extension.ExtensionContext;
 import org.junit.gen5.api.extension.ParameterResolver;

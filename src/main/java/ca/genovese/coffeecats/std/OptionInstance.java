@@ -1,13 +1,13 @@
 package ca.genovese.coffeecats.std;
 
-import ca.genovese.coffeecats.data.Option;
+import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.kind.Kind;
 import ca.genovese.coffeecats.structures.CovariantFunctor;
 
 import java.util.function.Function;
 
-import static ca.genovese.coffeecats.data.Option.none;
-import static ca.genovese.coffeecats.data.Option.some;
+import static ca.genovese.coffeecats.data.option.Option.none;
+import static ca.genovese.coffeecats.data.option.Option.some;
 
 public final class OptionInstance implements CovariantFunctor<Option> {
   @Override

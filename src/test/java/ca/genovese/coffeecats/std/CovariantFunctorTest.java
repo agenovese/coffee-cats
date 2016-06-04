@@ -1,7 +1,7 @@
 package ca.genovese.coffeecats.std;
 
-import ca.genovese.coffeecats.data.List;
-import ca.genovese.coffeecats.data.Option;
+import ca.genovese.coffeecats.data.list.List;
+import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.data.tuple.Tuple2;
 import ca.genovese.coffeecats.kind.Kind;
 import ca.genovese.coffeecats.laws.CovariantFunctorLaws;
@@ -10,7 +10,7 @@ import org.junit.gen5.api.Nested;
 import org.junit.gen5.api.Test;
 import org.junit.gen5.api.extension.ExtendWith;
 
-import static ca.genovese.coffeecats.data.Option.some;
+import static ca.genovese.coffeecats.data.option.Option.some;
 import static ca.genovese.coffeecats.data.Unit.unit;
 import static org.junit.gen5.api.Assertions.assertEquals;
 

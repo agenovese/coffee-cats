@@ -1,7 +1,7 @@
 package ca.genovese.coffeecats.std;
 
-import ca.genovese.coffeecats.data.List;
-import ca.genovese.coffeecats.data.Option;
+import ca.genovese.coffeecats.data.list.List;
+import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.kind.Kind;
 import ca.genovese.coffeecats.laws.InvariantFunctorLaws;
 import ca.genovese.coffeecats.structures.CovariantFunctor;
@@ -11,7 +11,7 @@ import org.junit.gen5.api.extension.ExtendWith;
 
 import java.util.function.Function;
 
-import static ca.genovese.coffeecats.data.Option.some;
+import static ca.genovese.coffeecats.data.option.Option.some;
 
 public class InvariantFunctorTest {
 

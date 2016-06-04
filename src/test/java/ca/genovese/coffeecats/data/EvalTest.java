@@ -1,5 +1,6 @@
 package ca.genovese.coffeecats.data;
 
+import ca.genovese.coffeecats.data.eval.Eval;
 import org.junit.gen5.api.BeforeEach;
 import org.junit.gen5.api.DisplayName;
 import org.junit.gen5.api.Test;
