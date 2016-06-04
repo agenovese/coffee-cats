@@ -5,9 +5,6 @@ import lombok.ToString;
 
 import java.util.Iterator;
 
-/**
- * Created by angelo on 2016-06-04.
- */
 @ToString
 @EqualsAndHashCode
 final class Cons<A> implements List<A> {

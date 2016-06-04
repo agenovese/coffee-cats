@@ -1,11 +1,6 @@
 package ca.genovese.coffeecats.data.list;
 
 import ca.genovese.coffeecats.kind.Kind;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public interface List<A> extends Iterable<A>, Kind<List, A> {
   @SafeVarargs

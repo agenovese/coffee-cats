@@ -19,7 +19,7 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
 
   @SuppressWarnings("unchecked")
   static <A> Option<A> none() {
-    return (None<A>) None.NONE;
+    return (None<A>) None.none();
   }
 
   boolean isDefined();

@@ -5,13 +5,15 @@ import lombok.ToString;
 
 import java.util.NoSuchElementException;
 
-/**
- * Created by angelo on 2016-06-04.
- */
 @ToString
 @EqualsAndHashCode
 final class None<A> implements Option<A> {
-  static final None NONE = new None();
+  private static final None NONE = new None();
+
+  @SuppressWarnings("unchecked")
+  static <A> None<A> none() {
+    return NONE;
+  }
 
   private None() {
 
