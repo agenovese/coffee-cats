@@ -6,22 +6,25 @@ import java.util.function.Supplier;
 
 /**
  * Construct a lazy Eval&lt;A&gt; instance.
- * <p>
- * This type should be used for most "lazy" values. In some sense it
+ * <p>This type should be used for most "lazy" values. In some sense it
  * is equivalent to using a lazy val.
- * <p>
- * When caching is not required or desired (e.g. if the value produced
+ * <p>When caching is not required or desired (e.g. if the value produced
  * may be large) prefer Always. When there is no computation
  * necessary, prefer Now.
- * <p>
- * Once Later has been evaluated, the closure (and any values captured
+ * <p>Once Later has been evaluated, the closure (and any values captured
  * by the closure) will not be retained, and will be available for
  * garbage collection.
  *
  * @param <A> The type returned by this Eval
  */
 final class Later<A> implements Eval<A> {
+  /**
+   * The function to use in calculating the value of this Eval.
+   */
   private Supplier<A> thunk;
+  /**
+   * The value of this Eval if it has already been computed, or None if it has not.
+   */
   private Option<A> value = Option.none();
 
   /**
@@ -36,8 +39,7 @@ final class Later<A> implements Eval<A> {
 
   /**
    * Evaluate the computation and return an A value.
-   * <p>
-   * For lazy instances (Later, Always), any necessary computation
+   * <p>For lazy instances (Later, Always), any necessary computation
    * will be performed at this point. For eager instances (Now), a
    * value will be immediately returned.
    *
@@ -55,8 +57,7 @@ final class Later<A> implements Eval<A> {
   /**
    * Ensure that the result of the computation (if any) will be
    * memoized.
-   * <p>
-   * Practically, this means that when called on an Always&lt;A&gt; a
+   * <p>Practically, this means that when called on an Always&lt;A&gt; a
    * Later&lt;A&gt; with an equivalent computation will be returned.
    *
    * @return A new, memoizing, Eval that is equivalent to the current Eval
