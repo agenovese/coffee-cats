@@ -15,26 +15,30 @@ import java.util.Optional;
 public class ListInstanceProvider implements ParameterResolver {
 
   @Override
-  public boolean supports(Parameter parameter, Optional<Object> target, ExtensionContext extensionContext) {
+  public boolean supports(final Parameter parameter,
+                          final Optional<Object> target,
+                          final ExtensionContext extensionContext) {
     return isListStructure(parameter) || isListKind(parameter);
   }
 
-  private boolean isListKind(Parameter parameter) {
+  private boolean isListKind(final Parameter parameter) {
     return parameter.getType().equals(Kind.class)
         && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("List"));
   }
 
-  private boolean isListStructure(Parameter parameter) {
+  private boolean isListStructure(final Parameter parameter) {
     return parameter.getType().isAssignableFrom(ListInstance.class)
         && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("List"));
   }
 
-  private String getTypeArgName(Parameter parameter, int index) {
+  private String getTypeArgName(final Parameter parameter, final int index) {
     return ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[index].getTypeName();
   }
 
   @Override
-  public Object resolve(Parameter parameter, Optional<Object> target, ExtensionContext extensionContext) {
+  public Object resolve(final Parameter parameter,
+                        final Optional<Object> target,
+                        final ExtensionContext extensionContext) {
     if (isListStructure(parameter)) {
       return new ListInstance();
     } else if (isListKind(parameter) && getTypeArgName(parameter, 1).equals("A")) {

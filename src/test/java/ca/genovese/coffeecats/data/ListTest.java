@@ -11,7 +11,7 @@ public class ListTest {
   @Test
   @DisplayName("Creating an empty List ")
   public void testListCreateEmptyList() {
-    List<Integer> is = List.of();
+    final List<Integer> is = List.of();
 
     //noinspection ThrowableResultOfMethodCallIgnored
     assertAll("address",
@@ -30,7 +30,7 @@ public class ListTest {
   @Test
   @DisplayName("Creating a non-empty List ")
   public void testListCreateNonEmptyList() {
-    List<Integer> is = List.of(1, 2, 3);
+    final List<Integer> is = List.of(1, 2, 3);
 
     assertAll("address",
         () -> assertEquals(3, is.length(),

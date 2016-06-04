@@ -10,43 +10,33 @@ import org.junit.gen5.api.Nested;
 import org.junit.gen5.api.Test;
 import org.junit.gen5.api.extension.ExtendWith;
 
-import java.util.function.Function;
-
 import static ca.genovese.coffeecats.data.Option.some;
 import static ca.genovese.coffeecats.data.Unit.unit;
 import static org.junit.gen5.api.Assertions.assertEquals;
 
 public class CovariantFunctorTest {
+  private final CovariantFunctor<List> F = new ListInstance();
 
   @Test
   public void testFunctorLift() {
-    List<Integer> fa = List.of(1, 2, 3, 4);
-    CovariantFunctor<List> F = new ListInstance();
-    Function<Kind<List, Integer>, Kind<List, String>> f = F.lift(Object::toString);
-    assertEquals(List.of("1", "2", "3", "4"), f.apply(fa));
+    assertEquals(List.of("1", "2", "3", "4"),
+        F.<Integer, String>lift(Object::toString).apply(List.of(1, 2, 3, 4)));
   }
 
   @Test
   public void testFunctorFproduct() {
-    List<Integer> fa = List.of(1, 2, 3, 4);
-    CovariantFunctor<List> F = new ListInstance();
-
     assertEquals(List.of(new Tuple2<>(1, "1"), new Tuple2<>(2, "2"), new Tuple2<>(3, "3"), new Tuple2<>(4, "4")),
-        F.fproduct(fa, Object::toString));
+        F.fproduct(List.of(1, 2, 3, 4), Object::toString));
   }
 
   @Test
   public void testFunctorClear() {
-    List<Integer> fa = List.of(1, 2, 3, 4);
-    CovariantFunctor<List> F = new ListInstance();
-    assertEquals(List.of(unit, unit, unit, unit), F.clear(fa));
+    assertEquals(List.of(unit, unit, unit, unit), F.clear(List.of(1, 2, 3, 4)));
   }
 
   @Test
   public void testFunctorAs() {
-    List<Integer> fa = List.of(1, 2, 3, 4);
-    CovariantFunctor<List> F = new ListInstance();
-    assertEquals(List.of("a", "a", "a", "a"), F.as(fa, "a"));
+    assertEquals(List.of("a", "a", "a", "a"), F.as(List.of(1, 2, 3, 4), "a"));
   }
 
   private static class ListOfOptionProvider extends AbstractInstanceProvider<CovariantFunctor, Kind<List, Option>> {

@@ -247,7 +247,7 @@ class Compute<A> implements Eval<A> {
     while (cont) {
       if (curr instanceof Compute) {
         final Compute c = (Compute) curr;
-        Eval cstart = (Eval) c.start.get();
+        final Eval cstart = (Eval) c.start.get();
         if (cstart instanceof Compute) {
           fs.add(0, c.run);
           curr = cstart;

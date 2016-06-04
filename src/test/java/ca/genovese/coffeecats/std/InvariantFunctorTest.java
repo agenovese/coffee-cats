@@ -19,15 +19,15 @@ public class InvariantFunctorTest {
       extends AbstractInstanceProvider<InvariantFunctor, Kind<List, Option>> {
     @Override
     protected InvariantFunctor instance() {
-      InvariantFunctor<Option> optionInstance = new InvariantFunctor<Option>() {
+      final InvariantFunctor<Option> optionInstance = new InvariantFunctor<Option>() {
         @Override
-        public <A, B> Kind<Option, B> imap(Kind<Option, A> fa, Function<A, B> f, Function<B, A> g) {
+        public <A, B> Kind<Option, B> imap(final Kind<Option, A> fa, final Function<A, B> f, final Function<B, A> g) {
           return new OptionInstance().imap(fa, f, g);
         }
       };
-      InvariantFunctor<List> listInstance = new InvariantFunctor<List>() {
+      final InvariantFunctor<List> listInstance = new InvariantFunctor<List>() {
         @Override
-        public <A, B> Kind<List, B> imap(Kind<List, A> fa, Function<A, B> f, Function<B, A> g) {
+        public <A, B> Kind<List, B> imap(final Kind<List, A> fa, final Function<A, B> f, final Function<B, A> g) {
           return new ListInstance().imap(fa, f, g);
         }
       };
@@ -57,10 +57,10 @@ public class InvariantFunctorTest {
       extends AbstractInstanceProvider<InvariantFunctor, Kind<List, Option>> {
     @Override
     protected InvariantFunctor instance() {
-      CovariantFunctor<Option> optionInstance = new OptionInstance();
-      InvariantFunctor<List> listInstance = new InvariantFunctor<List>() {
+      final CovariantFunctor<Option> optionInstance = new OptionInstance();
+      final InvariantFunctor<List> listInstance = new InvariantFunctor<List>() {
         @Override
-        public <A, B> Kind<List, B> imap(Kind<List, A> fa, Function<A, B> f, Function<B, A> g) {
+        public <A, B> Kind<List, B> imap(final Kind<List, A> fa, final Function<A, B> f, final Function<B, A> g) {
           return new ListInstance().imap(fa, f, g);
         }
       };

@@ -75,7 +75,7 @@ public class EvalTest {
 
     assertEquals(3, execCount, "Always Eval's should execute their supplier for each value access");
 
-    Eval<Integer> m = i.memoize();
+    final Eval<Integer> m = i.memoize();
 
     m.value();
     m.value();

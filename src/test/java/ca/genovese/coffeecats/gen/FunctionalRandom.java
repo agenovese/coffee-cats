@@ -9,13 +9,13 @@ public class FunctionalRandom {
   private static final int DEFAULT_SEED_LENGTH = 20;
   private final int seedLength;
   private final SecureRandom rnd;
-  private AtomicReference<Tuple2<Integer, FunctionalRandom>> value = new AtomicReference<>(null);
+  private final AtomicReference<Tuple2<Integer, FunctionalRandom>> value = new AtomicReference<>(null);
 
   public FunctionalRandom() {
     this(DEFAULT_SEED_LENGTH, new SecureRandom());
   }
 
-  public FunctionalRandom(int seedLength, SecureRandom rnd) {
+  public FunctionalRandom(final int seedLength, final SecureRandom rnd) {
     this.seedLength = seedLength;
     this.rnd = rnd;
   }

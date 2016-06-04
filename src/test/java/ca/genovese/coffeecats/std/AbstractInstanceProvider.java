@@ -19,27 +19,31 @@ public abstract class AbstractInstanceProvider<S, F> implements ParameterResolve
   protected abstract Class<S> type();
 
   @Override
-  public boolean supports(Parameter parameter, Optional<Object> target, ExtensionContext extensionContext) {
+  public boolean supports(final Parameter parameter,
+                          final Optional<Object> target,
+                          final ExtensionContext extensionContext) {
     return isInstance(parameter) || isKind(parameter);
   }
 
-  private boolean isKind(Parameter parameter) {
+  private boolean isKind(final Parameter parameter) {
     return parameter.getType().equals(Kind.class)
         && getTypeArgName(parameter, 0).equals("F");
   }
 
-  private boolean isInstance(Parameter parameter) {
+  private boolean isInstance(final Parameter parameter) {
     return parameter.getType().isAssignableFrom(type())
         && getTypeArgName(parameter, 0).equals("F");
   }
 
-  private String getTypeArgName(Parameter parameter, int index) {
+  private String getTypeArgName(final Parameter parameter, final int index) {
     return ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[index].getTypeName();
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public Object resolve(Parameter parameter, Optional<Object> target, ExtensionContext extensionContext) {
+  public Object resolve(final Parameter parameter,
+                        final Optional<Object> target,
+                        final ExtensionContext extensionContext) {
     if (isInstance(parameter)) {
       return instance();
     } else if (isKind(parameter) && getTypeArgName(parameter, 1).equals("A")) {

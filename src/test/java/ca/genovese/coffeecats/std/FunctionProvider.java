@@ -14,43 +14,47 @@ import java.util.function.Function;
 public class FunctionProvider implements ParameterResolver {
 
   @Override
-  public boolean supports(Parameter parameter, Optional<Object> target, ExtensionContext extensionContext) {
+  public boolean supports(final Parameter parameter,
+                          final Optional<Object> target,
+                          final ExtensionContext extensionContext) {
     return isFunctionAB(parameter)
         || isFunctionBA(parameter)
         || isFunctionBC(parameter)
         || isFunctionCB(parameter);
   }
 
-  private boolean isFunctionAB(Parameter parameter) {
+  private boolean isFunctionAB(final Parameter parameter) {
     return parameter.getType().isAssignableFrom(Function.class)
         && getTypeArgName(parameter, 0).equals("A")
         && getTypeArgName(parameter, 1).equals("B");
   }
 
-  private boolean isFunctionBA(Parameter parameter) {
+  private boolean isFunctionBA(final Parameter parameter) {
     return parameter.getType().isAssignableFrom(Function.class)
         && getTypeArgName(parameter, 0).equals("B")
         && getTypeArgName(parameter, 1).equals("A");
   }
 
-  private boolean isFunctionBC(Parameter parameter) {
+  private boolean isFunctionBC(final Parameter parameter) {
     return parameter.getType().isAssignableFrom(Function.class)
         && getTypeArgName(parameter, 0).equals("B")
         && getTypeArgName(parameter, 1).equals("C");
   }
 
-  private boolean isFunctionCB(Parameter parameter) {
+  private boolean isFunctionCB(final Parameter parameter) {
     return parameter.getType().isAssignableFrom(Function.class)
         && getTypeArgName(parameter, 0).equals("C")
         && getTypeArgName(parameter, 1).equals("B");
   }
 
-  private String getTypeArgName(Parameter parameter, int index) {
+  private String getTypeArgName(final Parameter parameter, final int index) {
     return ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[index].getTypeName();
   }
 
   @Override
-  public Object resolve(Parameter parameter, Optional<Object> target, ExtensionContext extensionContext) {
+  public Object resolve(final Parameter parameter,
+                        final Optional<Object> target,
+                        final ExtensionContext extensionContext) {
     if (isFunctionAB(parameter)) {
       return (Function<Integer, String>) Object::toString;
     } else if (isFunctionBA(parameter)) {
