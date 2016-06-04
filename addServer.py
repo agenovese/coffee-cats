@@ -4,8 +4,8 @@ import sys
 import xml.dom.minidom
 
 if os.environ["TRAVIS_SECURE_ENV_VARS"] == "false":
-  print "no secure env vars available, skipping deployment"
-  sys.exit()
+    print "no secure env vars available, skipping deployment"
+    sys.exit()
 
 homedir = os.path.expanduser("~")
 
@@ -14,10 +14,10 @@ settings = m2.getElementsByTagName("settings")[0]
 
 serversNodes = settings.getElementsByTagName("servers")
 if not serversNodes:
-  serversNode = m2.createElement("servers")
-  settings.appendChild(serversNode)
+    serversNode = m2.createElement("servers")
+    settings.appendChild(serversNode)
 else:
-  serversNode = serversNodes[0]
+    serversNode = serversNodes[0]
 
 sonatypeServerNode = m2.createElement("server")
 sonatypeServerId = m2.createElement("id")

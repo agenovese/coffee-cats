@@ -40,6 +40,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
   static <A> Eval<A> now(A a) {
     return new Now<>(a);
   }
+
   static <A> Eval<A> now(Supplier<A> a) {
     return now(a.get());
   }
@@ -73,7 +74,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
    *
-   * @param f the function to apply to the result of the current computation
+   * @param f         the function to apply to the result of the current computation
    * @param &lt;B&gt; output type of the applied function
    * @return A new computation which includes the application of f
    */
@@ -93,7 +94,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
    *
-   * @param f the function to apply to the result of the current computation
+   * @param f         the function to apply to the result of the current computation
    * @param &lt;B&gt; output type of the applied function
    * @return A new computation which includes the application of f
    */
@@ -230,7 +231,7 @@ class Compute<A> implements Eval<A> {
   @SuppressWarnings("unchecked")
   public <B> Eval<B> flatMap(final Function<A, Eval<B>> f) {
     return new Compute<>(start,
-        s -> new Compute<>(() -> (Eval)this.run.apply(s), f));
+        s -> new Compute<>(() -> (Eval) this.run.apply(s), f));
   }
 
   @Override

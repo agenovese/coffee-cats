@@ -26,7 +26,7 @@ public interface CovariantFunctor<F> extends InvariantFunctor<F> {
   /**
    * Lift a function f to operate on Functors.
    */
-  default <A, B> Function<Kind<F, A>, Kind<F, B>> lift(final Function<A,B> f) {
+  default <A, B> Function<Kind<F, A>, Kind<F, B>> lift(final Function<A, B> f) {
     return (Kind<F, A> fa) -> map(fa, f);
   }
 
@@ -40,7 +40,7 @@ public interface CovariantFunctor<F> extends InvariantFunctor<F> {
   /**
    * Tuple the values in fa with the result of applying a function with the value.
    */
-  default <A,B> Kind<F, Tuple2<A, B>> fproduct(final Kind<F, A> fa, final Function<A, B> f) {
+  default <A, B> Kind<F, Tuple2<A, B>> fproduct(final Kind<F, A> fa, final Function<A, B> f) {
     return map(fa, a -> new Tuple2<>(a, f.apply(a)));
   }
 
@@ -66,4 +66,4 @@ public interface CovariantFunctor<F> extends InvariantFunctor<F> {
       return (Kind<Kind<F, G>, B>) F.map((Kind<F, Kind<G, A>>) fa, G.lift(f));
     }
   }
- }
+}

@@ -7,10 +7,10 @@ import java.util.NoSuchElementException;
 
 import static org.junit.gen5.api.Assertions.*;
 
-public class ListTest {
+public final class ListTest {
   @Test
   @DisplayName("Creating an empty List ")
-  public void testListCreateEmptyList() {
+  final public void testListCreateEmptyList() {
     final List<Integer> is = List.of();
 
     //noinspection ThrowableResultOfMethodCallIgnored
@@ -29,7 +29,7 @@ public class ListTest {
 
   @Test
   @DisplayName("Creating a non-empty List ")
-  public void testListCreateNonEmptyList() {
+  final public void testListCreateNonEmptyList() {
     final List<Integer> is = List.of(1, 2, 3);
 
     assertAll("address",

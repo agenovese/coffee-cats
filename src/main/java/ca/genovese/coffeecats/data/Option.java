@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import static ca.genovese.coffeecats.data.None.NONE;
 
 public interface Option<A> extends Kind<Option, A>, Iterable<A> {
-  
+
   static <A> Option<A> of(final A a) {
     return a == null ? none() : some(a);
   }
@@ -39,7 +39,7 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
 
 @ToString
 @EqualsAndHashCode
-class Some<A> implements Option<A> {
+final class Some<A> implements Option<A> {
   private final A value;
 
   Some(final A value) {
@@ -59,7 +59,7 @@ class Some<A> implements Option<A> {
 
 @ToString
 @EqualsAndHashCode
-class None<A> implements Option<A> {
+final class None<A> implements Option<A> {
   static final None NONE = new None();
 
   private None() {
@@ -77,7 +77,7 @@ class None<A> implements Option<A> {
   }
 }
 
-class OptionIterator<A> implements Iterator<A> {
+final class OptionIterator<A> implements Iterator<A> {
   private final Option<A> opt;
   private boolean hasNext;
 

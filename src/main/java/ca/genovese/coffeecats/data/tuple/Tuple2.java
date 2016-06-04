@@ -14,7 +14,7 @@ public class Tuple2<A, B> {
     _2 = b;
   }
 
-  public <R> R applyTo(final BiFunction<A,B,R> f) {
+  public <R> R applyTo(final BiFunction<A, B, R> f) {
     return f.apply(_1, _2);
   }
 }

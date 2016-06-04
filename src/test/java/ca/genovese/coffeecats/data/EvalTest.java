@@ -19,7 +19,10 @@ public class EvalTest {
   @DisplayName("Creating a now Eval")
   public void testNowEval() {
 
-    Eval<Integer> i = Eval.now(() -> {execCount++; return 4;});
+    Eval<Integer> i = Eval.now(() -> {
+      execCount++;
+      return 4;
+    });
 
     assertSame(i, i.memoize());
 
@@ -29,7 +32,10 @@ public class EvalTest {
 
     assertEquals(1, execCount, "Now Eval's should only execute their supplier on construction");
 
-    i = i.map(x -> {execCount++; return x + 1;});
+    i = i.map(x -> {
+      execCount++;
+      return x + 1;
+    });
 
     assertEquals(1, execCount, "Eval's should execute mapped functions lazily");
 
@@ -42,7 +48,10 @@ public class EvalTest {
   @DisplayName("Creating a now Eval")
   public void testLaterEval() {
 
-    Eval<Integer> i = Eval.later(() -> {execCount++; return 4;});
+    Eval<Integer> i = Eval.later(() -> {
+      execCount++;
+      return 4;
+    });
 
     assertSame(i, i.memoize());
 
@@ -54,7 +63,10 @@ public class EvalTest {
 
     assertEquals(1, execCount, "Later Eval's should only execute their supplier on first access");
 
-    i = i.map(x -> {execCount++; return x + 1;});
+    i = i.map(x -> {
+      execCount++;
+      return x + 1;
+    });
 
     assertEquals(1, execCount, "Eval's should execute mapped functions lazily");
 
@@ -67,7 +79,10 @@ public class EvalTest {
   @DisplayName("Creating an always Eval")
   public void testAlwaysEval() {
 
-    Eval<Integer> i = Eval.always(() -> {execCount++; return 4;});
+    Eval<Integer> i = Eval.always(() -> {
+      execCount++;
+      return 4;
+    });
 
     i.value();
     i.value();
@@ -83,7 +98,10 @@ public class EvalTest {
 
     assertEquals(4, execCount, "Memoized Always Eval's should behave like a later eval");
 
-    i = i.map(x -> {execCount++; return x + 1;});
+    i = i.map(x -> {
+      execCount++;
+      return x + 1;
+    });
 
     assertEquals(4, execCount, "Eval's should execute mapped functions lazily");
 
