@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.util.function.BiFunction;
 
 @EqualsAndHashCode
-public class Tuple2<A, B> {
+public final class Tuple2<A, B> {
   public final A _1;
   public final B _2;
 

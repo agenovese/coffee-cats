@@ -14,7 +14,7 @@ import static ca.genovese.coffeecats.data.Option.some;
 import static ca.genovese.coffeecats.data.Unit.unit;
 import static org.junit.gen5.api.Assertions.assertEquals;
 
-public class CovariantFunctorTest {
+public final class CovariantFunctorTest {
   private final CovariantFunctor<List> F = new ListInstance();
 
   @Test

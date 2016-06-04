@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * @since 5.0
  */
-public class OptionInstanceProvider implements ParameterResolver {
+public final class OptionInstanceProvider implements ParameterResolver {
 
   @Override
   public boolean supports(final Parameter parameter,

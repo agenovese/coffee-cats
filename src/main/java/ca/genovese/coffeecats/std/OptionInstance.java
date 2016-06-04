@@ -9,7 +9,7 @@ import java.util.function.Function;
 import static ca.genovese.coffeecats.data.Option.none;
 import static ca.genovese.coffeecats.data.Option.some;
 
-public class OptionInstance implements CovariantFunctor<Option> {
+public final class OptionInstance implements CovariantFunctor<Option> {
   @Override
   @SuppressWarnings("unchecked")
   public <A, B> Kind<Option, B> map(final Kind<Option, A> fa, final Function<A, B> f) {

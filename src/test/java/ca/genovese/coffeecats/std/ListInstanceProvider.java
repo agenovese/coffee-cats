@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * @since 5.0
  */
-public class ListInstanceProvider implements ParameterResolver {
+public final class ListInstanceProvider implements ParameterResolver {
 
   @Override
   public boolean supports(final Parameter parameter,
