@@ -6,8 +6,10 @@ import java.util.Iterator;
 
 /**
  * A class for immutable linked lists representing ordered collections of elements of type A.
+ *
  * <p>This class comes with two implementing case classes Nil and Cons that implement the abstract
  * members isEmpty, head and tail.
+ *
  * <p>This class is optimal for last-in-first-out (LIFO), stack-like access patterns.
  * If you need another access pattern, for example, random access or FIFO,
  * consider using a collection more suited to this than List.
@@ -16,7 +18,7 @@ import java.util.Iterator;
  */
 public interface List<A> extends Iterable<A>, Kind<List, A> {
   /**
-   * Utility method for creating a List
+   * Utility method for creating a List.
    *
    * @param as The items to be added to the list
    * @param <A> The type of items in the list
@@ -34,7 +36,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
   }
 
   /**
-   * Create a new List with an item added to the beginning of an existing List
+   * Create a new List with an item added to the beginning of an existing List.
    * @param a The item to add to the list
    * @param as The list to use as a base
    * @param <A> The type of items in the List
@@ -45,7 +47,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
   }
 
   /**
-   * Calculate the length of the list
+   * Calculate the length of the list.
    *
    * @return the length of the list
    */
@@ -61,7 +63,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
   }
 
   /**
-   * Create a list which is the reverse of this list
+   * Create a list which is the reverse of this list.
    * @return The reverse of this list
    */
   default List<A> reverse() {
@@ -76,7 +78,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
 
 
   /**
-   * Create a new List which is the concatenation of the provided list and this one
+   * Create a new List which is the concatenation of the provided list and this one.
    * @param as The list to concatenate to this list
    * @return The new, concatenated, List
    */
@@ -113,7 +115,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
   List<A> getTail();
 
   /**
-   * Tests whether this List is empty
+   * Tests whether this List is empty.
    * @return true if this List is empty, false otherwise
    */
   boolean isEmpty();

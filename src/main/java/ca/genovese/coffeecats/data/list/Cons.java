@@ -14,16 +14,17 @@ import java.util.Iterator;
 @EqualsAndHashCode
 final class Cons<A> implements List<A> {
   /**
-   * The first item in the list
+   * The first item in the list.
    */
   private final A head;
   /**
-   * The rest of the items in the list
+   * The rest of the items in the list.
    */
   private final List<A> tail;
 
   /**
-   * Constructs a List
+   * Constructs a List.
+   *
    * @param head The first item in the new List
    * @param tail The rest of the items in the list
    */
@@ -34,6 +35,7 @@ final class Cons<A> implements List<A> {
 
   /**
    * Selects the first element of this List.
+   *
    * @return the first element of this List
    */
   public A getHead() {
@@ -42,6 +44,7 @@ final class Cons<A> implements List<A> {
 
   /**
    * Selects all elements except the first.
+   *
    * @return all elements except the first.
    */
   public List<A> getTail() {
@@ -49,7 +52,8 @@ final class Cons<A> implements List<A> {
   }
 
   /**
-   * Tests whether this List is empty
+   * Tests whether this List is empty.
+   *
    * @return true if this List is empty, false otherwise
    */
   public boolean isEmpty() {

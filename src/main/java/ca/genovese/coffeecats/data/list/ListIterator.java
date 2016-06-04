@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
  * @see Iterator
  *
  *
- * @param <A>
+ * @param <A> The type of the items in this
  */
 final class ListIterator<A> implements Iterator<A> {
   /**
