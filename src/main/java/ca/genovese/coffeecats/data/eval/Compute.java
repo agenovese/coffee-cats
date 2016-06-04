@@ -8,9 +8,11 @@ import java.util.function.Supplier;
  * Compute is a type of Eval&lt;A&gt; that is used to chain computations
  * involving map() and flatMap(). Along with Eval#flatMap it
  * implements the trampoline that guarantees stack-safety.
+ *
  * <p>Users should not instantiate Compute instances
  * themselves. Instead, they will be automatically created when
  * needed.
+ *
  * <p>Unlike a traditional trampoline, the internal workings of the
  * trampoline are not exposed. This allows a slightly more efficient
  * implementation of the .value method.
@@ -41,10 +43,12 @@ final class Compute<A> implements Eval<A> {
   /**
    * Lazily perform a computation based on an Eval&lt;A&gt;, using the
    * function `f` to produce an Eval&lt;B&gt; given an A.
+   *
    * <p>This call is stack-safe -- many .flatMap calls may be chained
    * without consumed additional stack during evaluation. It is also
    * written to avoid left-association problems, so that repeated
    * calls to .flatMap will be efficiently applied.
+   *
    * <p>Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
    *
@@ -62,6 +66,7 @@ final class Compute<A> implements Eval<A> {
   /**
    * Ensure that the result of the computation (if any) will be
    * memoized.
+   *
    * <p>Practically, this means that when called on an Always&lt;A&gt; a
    * Later&lt;A&gt; with an equivalent computation will be returned.
    *
@@ -74,6 +79,7 @@ final class Compute<A> implements Eval<A> {
 
   /**
    * Evaluate the computation and return an A value.
+   *
    * <p>For lazy instances (Later, Always), any necessary computation
    * will be performed at this point. For eager instances (Now), a
    * value will be immediately returned.

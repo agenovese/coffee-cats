@@ -2,7 +2,9 @@ package ca.genovese.coffeecats.data.eval;
 
 /**
  * Construct an eager Eval&lt;A&gt; instance.
+ *
  * <p>In some sense it is equivalent to using a val.
+ *
  * <p>This type should be used when an A value is already in hand, or
  * when the computation to produce an A value is pure and very fast.
  *
@@ -25,6 +27,7 @@ final class Now<A> implements Eval<A> {
 
   /**
    * Evaluate the computation and return an A value.
+   *
    * <p>For lazy instances (Later, Always), any necessary computation
    * will be performed at this point. For eager instances (Now), a
    * value will be immediately returned.
@@ -39,6 +42,7 @@ final class Now<A> implements Eval<A> {
   /**
    * Ensure that the result of the computation (if any) will be
    * memoized.
+   *
    * <p>Practically, this means that when called on an Always&lt;A&gt; a
    * Later&lt;A&gt; with an equivalent computation will be returned.
    *

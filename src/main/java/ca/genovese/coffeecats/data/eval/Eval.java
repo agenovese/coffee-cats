@@ -8,23 +8,28 @@ import java.util.function.Supplier;
 
 /**
  * Eval is a monad which controls evaluation.
+ *
  * <p>This type wraps a value (or a computation that produces a value)
  * and can produce it on command via the `.value()` method.
+ *
  * <p>There are three basic evaluation strategies:
  * <ul>
  * <li>Now:    evaluated immediately</li>
  * <li>- Later:  evaluated once when value is needed</li>
  * <li>- Always: evaluated every time value is needed</li>
  * </ul>
+ *
  * <p>The Later and Always are both lazy strategies while Now is eager.
  * Later and Always are distinguished from each other only by
  * memoization: once evaluated Later will save the value to be returned
  * immediately if it is needed again. Always will run its computation
  * every time.
+ *
  * <p>Eval supports stack-safe lazy computation via the .map and .flatMap
  * methods, which use an internal trampoline to avoid stack overflows.
  * Computation done within .map and .flatMap is always done lazily,
  * even when applied to a Now instance.
+ *
  * <p>Use .map and .flatMap to chain computation, and use .value
  * to get the result when needed. It is not good style to create
  * Eval instances whose computation involves calling .value on another
@@ -83,6 +88,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
 
   /**
    * Evaluate the computation and return an A value.
+   *
    * <p>For lazy instances (Later, Always), any necessary computation
    * will be performed at this point. For eager instances (Now), a
    * value will be immediately returned.
@@ -94,8 +100,10 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
   /**
    * Transform an Eval&lt;A&gt; into an Eval&lt;B&gt; given the transformation
    * function `f`.
+   *
    * <p>This call is stack-safe -- many .map calls may be chained without
    * consumed additional stack during evaluation.
+   *
    * <p>Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
    *
@@ -110,10 +118,12 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
   /**
    * Lazily perform a computation based on an Eval&lt;A&gt;, using the
    * function `f` to produce an Eval&lt;B&gt; given an A.
+   *
    * <p>This call is stack-safe -- many .flatMap calls may be chained
    * without consumed additional stack during evaluation. It is also
    * written to avoid left-association problems, so that repeated
    * calls to .flatMap will be efficiently applied.
+   *
    * <p>Computation performed in f is always lazy, even when called on an
    * eager (Now) instance.
    *
@@ -128,6 +138,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
   /**
    * Ensure that the result of the computation (if any) will be
    * memoized.
+   *
    * <p>Practically, this means that when called on an Always&lt;A&gt; a
    * Later&lt;A&gt; with an equivalent computation will be returned.
    *
