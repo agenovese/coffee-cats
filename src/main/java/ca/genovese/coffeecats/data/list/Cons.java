@@ -3,8 +3,6 @@ package ca.genovese.coffeecats.data.list;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.Iterator;
-
 /**
  * A non empty list characterized by a head and a tail.
  *

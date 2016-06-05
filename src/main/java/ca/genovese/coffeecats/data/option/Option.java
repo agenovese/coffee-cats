@@ -1,11 +1,8 @@
 package ca.genovese.coffeecats.data.option;
 
 import ca.genovese.coffeecats.kind.Kind;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public interface Option<A> extends Kind<Option, A>, Iterable<A> {
 
