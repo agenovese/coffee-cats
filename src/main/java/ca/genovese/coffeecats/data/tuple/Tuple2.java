@@ -25,7 +25,7 @@ public final class Tuple2<A, B> {
   /**
    * Construct a tuple.
    */
-  public Tuple2(A a, B b) {
+  public Tuple2(final A a, final B b) {
     _1 = a;
     _2 = b;
   }

@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Represents optional values.
  *
- * Instances of Option are either an instance of Some or the singleton object None.
+ * <p>Instances of Option are either an instance of Some or the singleton object None.
  * The most idiomatic way to use an Option instance is to treat it as a collection
  * or monad and use map,flatMap, filter, or foreach:
  *
@@ -70,7 +70,7 @@ public interface Option<A> extends Kind<Option, A>, Iterable<A> {
    *
    * @param a the default value to return in the case of a None
    * @return the value contained in the Option in the case of a Some,
-   * or the provided default value in the case of a None
+   *     or the provided default value in the case of a None
    */
   default A getOrElse(final A a) {
     return isDefined() ? get() : a;

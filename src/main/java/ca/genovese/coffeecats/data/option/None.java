@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 @EqualsAndHashCode
 final class None<A> implements Option<A> {
   /**
-   * The singleton instance
+   * The singleton instance.
    */
   private static final None NONE = new None();
 
@@ -30,14 +30,14 @@ final class None<A> implements Option<A> {
   }
 
   /**
-   * No action constructor
+   * No action constructor.
    */
   private None() {
 
   }
 
   /**
-   * Returns whether or not the current item is defined
+   * Returns whether or not the current item is defined.
    *
    * @return false
    */
