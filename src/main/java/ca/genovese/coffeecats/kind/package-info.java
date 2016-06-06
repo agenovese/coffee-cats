@@ -8,8 +8,8 @@
  * <p>For example, this allows us to represent Functor as:
  * <pre>
  * <code>
- * interface Functor<F> {
- *   <A, B> Kind<F, B> map(Kind<F, A> fa, Function<A, B> f);
+ * interface {@code Functor<F>} {
+ *   {@code <A, B>} {@code Kind<F, B>} map({@code Kind<F, A>} fa, {@code Function<A, B>} f);
  * }
  * </code>
  * </pre>
