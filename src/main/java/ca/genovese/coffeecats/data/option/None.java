@@ -19,6 +19,13 @@ final class None<A> implements Option<A> {
   private static final None NONE = new None();
 
   /**
+   * No action constructor.
+   */
+  private None() {
+
+  }
+
+  /**
    * A method for getting the singleton instance, parameterized by the type of Option required.
    *
    * @param <A> The type of Option
@@ -27,13 +34,6 @@ final class None<A> implements Option<A> {
   @SuppressWarnings("unchecked")
   static <A> None<A> none() {
     return NONE;
-  }
-
-  /**
-   * No action constructor.
-   */
-  private None() {
-
   }
 
   /**

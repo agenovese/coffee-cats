@@ -24,6 +24,9 @@ public final class Tuple2<A, B> {
 
   /**
    * Construct a tuple.
+   *
+   * @param a The first element in the Tuple
+   * @param b The second element in the Tuple
    */
   public Tuple2(final A a, final B b) {
     _1 = a;
@@ -32,6 +35,10 @@ public final class Tuple2<A, B> {
 
   /**
    * Apply a 2 argument function to the tuple.
+   *
+   * @param f the 2 argument function to apply with the tuple's elements as arguments.
+   * @param <R> the return type of the provided function
+   * @return the result of the function
    */
   public <R> R applyTo(final BiFunction<A, B, R> f) {
     return f.apply(_1, _2);
