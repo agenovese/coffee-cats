@@ -1,8 +1,11 @@
 ## Coffee Cats
 
+[![Build Status](https://travis-ci.org/agenovese/coffee-cats.svg?branch=master)](https://travis-ci.org/agenovese/coffee-cats)
 [![Workflow](https://badge.waffle.io/non/cats.png?label=ready&title=Ready)](https://waffle.io/agenovese/coffee-cats)
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/agenovese/coffee-cats)
 [![codecov.io](http://codecov.io/github/agenovese/coffee-cats/coverage.svg?branch=master)](http://codecov.io/github/agenovese/coffee-cats?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/agenovese/coffee-cats/badge.svg?branch=master)](https://coveralls.io/github/agenovese/coffee-cats?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1df53f060df64e2f9b7d946955555581)](https://www.codacy.com/app/angelo_2/coffee-cats?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=agenovese/coffee-cats&amp;utm_campaign=Badge_Grade)
 
 ### Overview
 
