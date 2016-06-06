@@ -16,6 +16,9 @@ import java.util.function.Supplier;
  * @param <A> The type returned by this Eval
  */
 final class Always<A> implements Eval<A> {
+  /**
+   * The function user to calculate the value of this Eval.
+   */
   private final Supplier<A> f;
 
   /**

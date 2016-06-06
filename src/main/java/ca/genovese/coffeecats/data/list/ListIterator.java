@@ -6,21 +6,20 @@ import java.util.NoSuchElementException;
 /**
  * An iterator over a List.
  *
+ * @param <A> The type of the items in this
  * @see List
  * @see Iterable
  * @see Iterator
- *
- *
- * @param <A> The type of the items in this
  */
 final class ListIterator<A> implements Iterator<A> {
   /**
-   * The rest of the list
+   * The rest of the list.
    */
   private List<A> list;
 
   /**
-   * Construct a new Iterator
+   * Construct a new Iterator.
+   *
    * @param list the List over which this will Iterate
    */
   ListIterator(final List<A> list) {

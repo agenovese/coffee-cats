@@ -1,7 +1,7 @@
 package ca.genovese.coffeecats.data;
 
 /**
- * A "void" type
+ * A "void" type.
  */
 public final class Unit {
   /**
