@@ -14,16 +14,16 @@ import java.util.NoSuchElementException;
 @EqualsAndHashCode
 final class None<A> implements Option<A> {
   /**
-   * The singleton instance.
-   */
-  private static final None NONE = new None();
-
-  /**
    * No action constructor.
    */
   private None() {
 
   }
+
+  /**
+   * The singleton instance.
+   */
+  private static final None NONE = new None();
 
   /**
    * A method for getting the singleton instance, parameterized by the type of Option required.
