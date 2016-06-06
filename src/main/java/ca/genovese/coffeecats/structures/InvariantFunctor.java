@@ -7,12 +7,21 @@ import java.util.function.Function;
 
 /**
  * InvariantFunctor.
- * <p>
- * Must obey the laws defined in InvariantLaws
+ *
+ * <p>Must obey the laws defined in InvariantLaws
  *
  * @param <F> the type for which this is an InvariantFunctor.
  */
 public interface InvariantFunctor<F> {
+  /**
+   * An Invariant Map function
+   * @param fa an {@code F<A>}
+   * @param f a function from A to B to be applied Covariantly
+   * @param g a function from B to A to be applied Contravariantly
+   * @param <A> The input type
+   * @param <B> The output type
+   * @return {@code F<B>}
+   */
   <A, B> Kind<F, B> imap(final Kind<F, A> fa, final Function<A, B> f, final Function<B, A> g);
 
   /**
@@ -47,16 +56,16 @@ public interface InvariantFunctor<F> {
    */
   class Composite<F, G> implements InvariantFunctor<Kind<F, G>> {
     /**
-     * the outer data type's InvariantFunctor implementation
+     * the outer data type's InvariantFunctor implementation.
      */
     private final InvariantFunctor<F> F;
     /**
-     * the inner data type's InvariantFunctor implementation
+     * the inner data type's InvariantFunctor implementation.
      */
     private final InvariantFunctor<G> G;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param f the outer data type's InvariantFunctor implementation
      * @param g the inner data type's InvariantFunctor implementation
@@ -67,7 +76,7 @@ public interface InvariantFunctor<F> {
     }
 
     /**
-     * An imap implementation for {@code F<G<?>>}
+     * An imap implementation for {@code F<G<?>>}.
      *
      * @param fga an {@code F<G<A>>}
      * @param f   the function to apply Covariantly
@@ -87,23 +96,24 @@ public interface InvariantFunctor<F> {
 
   /**
    * An implementation of InvariantFunctor that combines an existing
-   * InvariantFunctor with an existing CovariantFunctor and applies to the data types in a nested way.
+   * InvariantFunctor with an existing CovariantFunctor and applies
+   * to the data types in a nested way.
    *
    * @param <F> the outer data type
    * @param <G> the inner data type
    */
   class CovariantComposite<F, G> implements InvariantFunctor<Kind<F, G>> {
     /**
-     * the outer data type's InvariantFunctor implementation
+     * the outer data type's InvariantFunctor implementation.
      */
     private final InvariantFunctor<F> F;
     /**
-     * the inner data type's CovariantFunctor implementation
+     * the inner data type's CovariantFunctor implementation.
      */
     private final CovariantFunctor<G> G;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param f the outer data type's InvariantFunctor implementation
      * @param g the inner data type's CovariantFunctor implementation
@@ -114,7 +124,7 @@ public interface InvariantFunctor<F> {
     }
 
     /**
-     * An imap implementation for {@code F<G<?>>}
+     * An imap implementation for {@code F<G<?>>}.
      *
      * @param fga an {@code F<G<A>>}
      * @param f   the function to apply Covariantly

@@ -10,7 +10,7 @@ import static ca.genovese.coffeecats.data.option.Option.none;
 import static ca.genovese.coffeecats.data.option.Option.some;
 
 /**
- * An object which implements all the applicable structures for Option
+ * An object which implements all the applicable structures for Option.
  */
 public final class OptionInstance implements CovariantFunctor<Option> {
   /**

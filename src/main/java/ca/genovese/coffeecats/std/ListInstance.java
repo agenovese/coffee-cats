@@ -7,7 +7,7 @@ import ca.genovese.coffeecats.structures.CovariantFunctor;
 import java.util.function.Function;
 
 /**
- * An object which implements all the applicable structures for List
+ * An object which implements all the applicable structures for List.
  */
 public final class ListInstance implements CovariantFunctor<List> {
   /**
