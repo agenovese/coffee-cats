@@ -98,7 +98,7 @@ public interface CovariantFunctor<F> extends InvariantFunctor<F> {
    * @param <A> the type of the values in fa
    * @param <B> the output type of f
    * @return an {@code F<Tuple<A, B>>} containing the values from fa as the first
-   * element in the tuple and the output of f.apply(a) as the second argument.
+   *     element in the tuple and the output of f.apply(a) as the second argument.
    */
   default <A, B> Kind<F, Tuple2<A, B>> fproduct(final Kind<F, A> fa, final Function<A, B> f) {
     return map(fa, a -> new Tuple2<>(a, f.apply(a)));
