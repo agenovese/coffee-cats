@@ -76,7 +76,7 @@ public interface InvariantFunctor<F> {
     }
 
     /**
-     * An imap implementation for {@code F<G<?>>}.
+     * An imap implementation for a pair of InvariantFunctors nested as {@code F<G<?>>}.
      *
      * @param fga an {@code F<G<A>>}
      * @param f   the function to apply Covariantly
@@ -124,7 +124,8 @@ public interface InvariantFunctor<F> {
     }
 
     /**
-     * An imap implementation for {@code F<G<?>>}.
+     * An imap implementation for an Invariant {@code F<?>}
+     * and a Covariant {@code G<?>} nested as {@code F<G<?>>}.
      *
      * @param fga an {@code F<G<A>>}
      * @param f   the function to apply Covariantly
