@@ -2,12 +2,6 @@ package ca.genovese.coffeecats.std;
 
 import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.kind.Kind;
-import org.junit.gen5.api.extension.ExtensionContext;
-import org.junit.gen5.api.extension.ParameterResolver;
-
-import java.lang.reflect.Parameter;
-import java.lang.reflect.ParameterizedType;
-import java.util.Optional;
 
 /**
  * An implementation of ParameterResolver which returns Option Instances and Kinds.
@@ -37,6 +31,7 @@ public final class OptionInstanceProvider extends AbstractInstanceProvider<Optio
   /**
    * Returns a type to be used to check for implemenations
    * of interfaces in the structures package for Option.
+   *
    * @return OptionInstance.class
    */
   @Override
