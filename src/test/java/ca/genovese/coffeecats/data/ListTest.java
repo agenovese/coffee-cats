@@ -8,7 +8,13 @@ import java.util.NoSuchElementException;
 
 import static org.junit.gen5.api.Assertions.*;
 
+/**
+ * Test for List, ListIterator, Cons, and Nil
+ */
 public final class ListTest {
+  /**
+   * Test for Nil case.
+   */
   @Test
   @DisplayName("Creating an empty List ")
   public void testListCreateEmptyList() {
@@ -28,6 +34,9 @@ public final class ListTest {
     );
   }
 
+  /**
+   * Test for Cons case.
+   */
   @Test
   @DisplayName("Creating a non-empty List ")
   public void testListCreateNonEmptyList() {

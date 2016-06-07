@@ -8,7 +8,14 @@ import java.util.NoSuchElementException;
 
 import static org.junit.gen5.api.Assertions.*;
 
+/**
+ * Test for the basic functionality provided by Option, Some, and None.
+ */
 public final class OptionTest {
+
+  /**
+   * Test for None.
+   */
   @Test
   @DisplayName("Creating a None")
   public void testOptionCreateNone() {
@@ -29,6 +36,9 @@ public final class OptionTest {
     );
   }
 
+  /**
+   * Test for Some.
+   */
   @Test
   @DisplayName("Creating a Some")
   public void testOptionCreateSome() {

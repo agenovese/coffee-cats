@@ -8,14 +8,28 @@ import org.junit.gen5.api.Test;
 import static org.junit.gen5.api.Assertions.assertEquals;
 import static org.junit.gen5.api.Assertions.assertSame;
 
+/**
+ * Test for Eval types.
+ */
 public final class EvalTest {
+  /**
+   * Counter for the number of executions.
+   * Used to detect lazyness/strictness
+   * and memoization of executions.
+   */
   private int execCount;
 
+  /**
+   * Reset the execCount prior to each test.
+   */
   @BeforeEach
   public void resetCount() {
     execCount = 0;
   }
 
+  /**
+   * Test that the now Eval is Strict and Memoized.
+   */
   @Test
   @DisplayName("Creating a now Eval")
   public void testNowEval() {
@@ -45,8 +59,11 @@ public final class EvalTest {
     assertEquals(2, execCount, "Eval's should execute mapped function on value access");
   }
 
+  /**
+   * Test that the later Eval is Lazy and Memoized.
+   */
   @Test
-  @DisplayName("Creating a now Eval")
+  @DisplayName("Creating a later Eval")
   public void testLaterEval() {
 
     Eval<Integer> i = Eval.later(() -> {
@@ -76,6 +93,9 @@ public final class EvalTest {
     assertEquals(2, execCount, "Eval's should execute mapped function on value access");
   }
 
+  /**
+   * Test that the always Eval is Lazy and not Memoized.
+   */
   @Test
   @DisplayName("Creating an always Eval")
   public void testAlwaysEval() {

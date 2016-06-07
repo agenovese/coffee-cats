@@ -2,49 +2,41 @@ package ca.genovese.coffeecats.std;
 
 import ca.genovese.coffeecats.data.list.List;
 import ca.genovese.coffeecats.kind.Kind;
-import org.junit.gen5.api.extension.ExtensionContext;
-import org.junit.gen5.api.extension.ParameterResolver;
 
-import java.lang.reflect.Parameter;
-import java.lang.reflect.ParameterizedType;
-import java.util.Optional;
 
 /**
- * @since 5.0
+ * An implementation of ParameterResolver which returns List Instances and Kinds.
  */
-public final class ListInstanceProvider implements ParameterResolver {
 
+public final class ListInstanceProvider extends AbstractInstanceProvider<ListInstance, Kind<List, Integer>> {
+
+  /**
+   * Return an implementation of the interfaces in the structures package for List.
+   *
+   * @return ListInstance
+   */
   @Override
-  public boolean supports(final Parameter parameter,
-                          final Optional<Object> target,
-                          final ExtensionContext extensionContext) {
-    return isListStructure(parameter) || isListKind(parameter);
+  protected ListInstance instance() {
+    return ListInstance.listInstance;
   }
 
-  private boolean isListKind(final Parameter parameter) {
-    return parameter.getType().equals(Kind.class)
-        && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("List"));
-  }
-
-  private boolean isListStructure(final Parameter parameter) {
-    return parameter.getType().isAssignableFrom(ListInstance.class)
-        && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("List"));
-  }
-
-  private String getTypeArgName(final Parameter parameter, final int index) {
-    return ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[index].getTypeName();
-  }
-
+  /**
+   * Return a List.
+   *
+   * @return Cons(1, Cons(2, Cons(3, Cons(4, Nil))))
+   */
   @Override
-  public Object resolve(final Parameter parameter,
-                        final Optional<Object> target,
-                        final ExtensionContext extensionContext) {
-    if (isListStructure(parameter)) {
-      return new ListInstance();
-    } else if (isListKind(parameter) && getTypeArgName(parameter, 1).equals("A")) {
-      return List.of(1, 2, 3, 4);
-    } else {
-      return null;
-    }
+  protected Kind<List, Integer> kind() {
+    return List.of(1, 2, 3, 4);
+  }
+
+  /**
+   * Returns a type to be used to check for implemenations
+   * of interfaces in the structures package for List.
+   * @return ListInstance.class
+   */
+  @Override
+  protected Class<ListInstance> type() {
+    return ListInstance.class;
   }
 }

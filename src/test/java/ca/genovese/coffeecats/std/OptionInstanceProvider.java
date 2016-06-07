@@ -10,41 +10,37 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Optional;
 
 /**
- * @since 5.0
+ * An implementation of ParameterResolver which returns Option Instances and Kinds.
  */
-public final class OptionInstanceProvider implements ParameterResolver {
+public final class OptionInstanceProvider extends AbstractInstanceProvider<OptionInstance, Kind<Option, Integer>> {
 
+  /**
+   * Return an implementation of the interfaces in the structures package for Option.
+   *
+   * @return OptionInstance
+   */
   @Override
-  public boolean supports(final Parameter parameter,
-                          final Optional<Object> target,
-                          final ExtensionContext extensionContext) {
-    return isOptionStructure(parameter) || isOptionKind(parameter);
+  protected OptionInstance instance() {
+    return OptionInstance.optionInstance;
   }
 
-  private boolean isOptionKind(final Parameter parameter) {
-    return parameter.getType().equals(Kind.class)
-        && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("Option"));
-  }
-
-  private boolean isOptionStructure(final Parameter parameter) {
-    return parameter.getType().isAssignableFrom(OptionInstance.class)
-        && (getTypeArgName(parameter, 0).equals("F") || getTypeArgName(parameter, 0).equals("Option"));
-  }
-
-  private String getTypeArgName(final Parameter parameter, final int index) {
-    return ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[index].getTypeName();
-  }
-
+  /**
+   * Return an Option.
+   *
+   * @return Some(1)
+   */
   @Override
-  public Object resolve(final Parameter parameter,
-                        final Optional<Object> target,
-                        final ExtensionContext extensionContext) {
-    if (isOptionStructure(parameter)) {
-      return new OptionInstance();
-    } else if (isOptionKind(parameter) && getTypeArgName(parameter, 1).equals("A")) {
-      return Option.of(1);
-    } else {
-      return null;
-    }
+  protected Kind<Option, Integer> kind() {
+    return Option.of(1);
+  }
+
+  /**
+   * Returns a type to be used to check for implemenations
+   * of interfaces in the structures package for Option.
+   * @return OptionInstance.class
+   */
+  @Override
+  protected Class<OptionInstance> type() {
+    return OptionInstance.class;
   }
 }
