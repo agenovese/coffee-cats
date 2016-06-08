@@ -58,4 +58,14 @@ final class Always<A> implements Eval<A> {
   public Eval<A> memoize() {
     return new Later<>(f);
   }
+
+  @Override
+  public boolean equals(Object o) {
+    return equalsCheck(o);
+  }
+
+  @Override
+  public int hashCode() {
+    return hashCodeGen();
+  }
 }

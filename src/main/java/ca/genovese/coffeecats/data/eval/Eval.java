@@ -145,5 +145,19 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @return A new, memoizing, Eval that is equivalent to the current Eval
    */
   Eval<A> memoize();
+
+
+  default boolean equalsCheck(Object o) {
+    if (this == o) return true;
+    if (o == null || !Eval.class.isAssignableFrom(o.getClass())) return false;
+
+    Eval<?> other = (Eval<?>) o;
+
+    return value().equals(other.value());
+  }
+
+  default int hashCodeGen() {
+    return value().hashCode();
+  }
 }
 

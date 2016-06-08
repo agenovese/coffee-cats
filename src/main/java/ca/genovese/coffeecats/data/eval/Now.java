@@ -52,4 +52,14 @@ final class Now<A> implements Eval<A> {
   public Eval<A> memoize() {
     return this;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    return equalsCheck(o);
+  }
+
+  @Override
+  public int hashCode() {
+    return hashCodeGen();
+  }
 }

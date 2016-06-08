@@ -113,4 +113,14 @@ final class Compute<A> implements Eval<A> {
     }
     return (A) curr.value();
   }
+
+  @Override
+  public boolean equals(Object o) {
+    return equalsCheck(o);
+  }
+
+  @Override
+  public int hashCode() {
+    return hashCodeGen();
+  }
 }
