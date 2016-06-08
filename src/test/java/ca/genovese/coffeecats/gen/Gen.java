@@ -12,7 +12,7 @@ import java.util.function.Function;
 /**
  * A random value generator, used for creating property based tests.
  *
- * Gen is actually a specialized implementation of the State Monad
+ * <p>Gen is actually a specialized implementation of the State Monad
  * {@code (FunctionalRandom) -> Tuple2<FunctionalRandom, A>}
  *
  * @param <A> The type of value returned by this Gen
@@ -20,7 +20,7 @@ import java.util.function.Function;
 @FunctionalInterface
 public interface Gen<A> extends Kind<Gen, A> {
   /**
-   * A {@code Gen<Integer>} used as a basis for most other Gen values
+   * A {@code Gen<Integer>} used as a basis for most other Gen values.
    */
   Gen<Integer> intGen = FunctionalRandom::nextInt;
 
