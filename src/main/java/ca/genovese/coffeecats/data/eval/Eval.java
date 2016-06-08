@@ -146,7 +146,12 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    */
   Eval<A> memoize();
 
-
+  /**
+   * Implementation function for Equals for Eval instances.
+   *
+   * @param o Eval to compare this to.
+   * @return true if o is an Eval and returns an equal value for Eval.value
+   */
   default boolean equalsCheck(Object o) {
     if (this == o) return true;
     if (o == null || !Eval.class.isAssignableFrom(o.getClass())) return false;
@@ -156,6 +161,11 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
     return value().equals(other.value());
   }
 
+  /**
+   * Implementation function for hashCode for Eval instances.
+   *
+   * @return hashCode of Eval.value
+   */
   default int hashCodeGen() {
     return value().hashCode();
   }
