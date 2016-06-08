@@ -13,10 +13,21 @@ import java.util.function.Function;
 
 import static ca.genovese.coffeecats.data.option.Option.some;
 
+/**
+ * Test the derived methods in InvariantFunctor.
+ */
 public class InvariantFunctorTest {
 
+  /**
+   * A ParameterResolver providing a composite of 2 InvariantFunctors.
+   */
   private static class InvariantCompositeProvider
       extends AbstractInstanceProvider<InvariantFunctor, Kind<List, Option>> {
+    /**
+     * Create an instance of a composite of 2 InvariantFunctors.
+     *
+     * @return a composite of 2 InvariantFunctors
+     */
     @Override
     protected InvariantFunctor instance() {
       final InvariantFunctor<Option> optionInstance = new InvariantFunctor<Option>() {
@@ -34,18 +45,30 @@ public class InvariantFunctorTest {
       return listInstance.compose(optionInstance);
     }
 
+    /**
+     * A Nested data structure for the composite InvariantFunctor.
+     *
+     * @return A {@code List<Option<Integer>>}
+     */
     @Override
     protected Kind<List, Option> kind() {
       return List.of(some(1), some(2), some(3), some(4));
     }
 
+    /**
+     * InvariantFunctor.class.
+     *
+     * @return InvariantFunctor.class
+     */
     @Override
     protected Class<InvariantFunctor> type() {
       return InvariantFunctor.class;
     }
   }
 
-
+  /**
+   * Test that the Invariant Composite follows the InvariantFunctorLaws.
+   */
   @Nested
   @ExtendWith(InvariantCompositeProvider.class)
   @ExtendWith(FunctionProvider.class)
@@ -53,8 +76,17 @@ public class InvariantFunctorTest {
 
   }
 
+  /**
+   * A ParameterResolver providing a composite of an InvariantFunctor with a CovariantFunctor.
+   */
   private static class CovariantCompositeProvider
       extends AbstractInstanceProvider<InvariantFunctor, Kind<List, Option>> {
+
+    /**
+     * Create an instance of a composite of an InvariantFunctor with a CovariantFunctor.
+     *
+     * @return a composite of an InvariantFunctor with a CovariantFunctor
+     */
     @Override
     protected InvariantFunctor instance() {
       final CovariantFunctor<Option> optionInstance = new OptionInstance();
@@ -67,17 +99,30 @@ public class InvariantFunctorTest {
       return listInstance.composeWithFunctor(optionInstance);
     }
 
+    /**
+     * A Nested data structure for the composite InvariantFunctor.
+     *
+     * @return A {@code List<Option<Integer>>}
+     */
     @Override
     protected Kind<List, Option> kind() {
       return List.of(some(1), some(2), some(3), some(4));
     }
 
+    /**
+     * InvariantFunctor.class.
+     *
+     * @return InvariantFunctor.class
+     */
     @Override
     protected Class<InvariantFunctor> type() {
       return InvariantFunctor.class;
     }
   }
 
+  /**
+   * Test that the Invariant/Covariant Composite follows the InvariantFunctorLaws.
+   */
   @Nested
   @ExtendWith(CovariantCompositeProvider.class)
   @ExtendWith(FunctionProvider.class)

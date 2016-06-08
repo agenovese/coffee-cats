@@ -7,7 +7,6 @@ import ca.genovese.coffeecats.kind.Kind;
 /**
  * An implementation of ParameterResolver which returns List Instances and Kinds.
  */
-
 public final class ListInstanceProvider extends AbstractInstanceProvider<ListInstance, Kind<List, Integer>> {
 
   /**
@@ -33,6 +32,7 @@ public final class ListInstanceProvider extends AbstractInstanceProvider<ListIns
   /**
    * Returns a type to be used to check for implemenations
    * of interfaces in the structures package for List.
+   *
    * @return ListInstance.class
    */
   @Override

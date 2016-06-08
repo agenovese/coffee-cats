@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * An implementation of ParameterResolver for Functions
+ * An implementation of ParameterResolver for Functions.
  */
 public final class FunctionProvider implements ParameterResolver {
 
@@ -32,7 +32,7 @@ public final class FunctionProvider implements ParameterResolver {
   }
 
   /**
-   * Is the paramater a {@code Function<A, B>}
+   * Is the paramater a {@code Function<A, B>}.
    *
    * @param parameter The parameter to test
    * @return true if the paramater a {@code Function<A, B>}
@@ -44,7 +44,7 @@ public final class FunctionProvider implements ParameterResolver {
   }
 
   /**
-   * Is the paramater a {@code Function<B, A>}
+   * Is the paramater a {@code Function<B, A>}.
    *
    * @param parameter The parameter to test
    * @return true if the paramater a {@code Function<B, A>}
@@ -56,7 +56,7 @@ public final class FunctionProvider implements ParameterResolver {
   }
 
   /**
-   * Is the paramater a {@code Function<B, C>}
+   * Is the paramater a {@code Function<B, C>}.
    *
    * @param parameter The parameter to test
    * @return true if the paramater a {@code Function<B, C>}
@@ -68,7 +68,7 @@ public final class FunctionProvider implements ParameterResolver {
   }
 
   /**
-   * Is the paramater a {@code Function<C, B>}
+   * Is the paramater a {@code Function<C, B>}.
    *
    * @param parameter The parameter to test
    * @return true if the paramater a {@code Function<C, B>}
