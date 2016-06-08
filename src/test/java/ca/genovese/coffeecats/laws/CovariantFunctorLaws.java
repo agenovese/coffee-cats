@@ -15,16 +15,38 @@ import static org.junit.gen5.api.Assertions.assertEquals;
  * @see CovariantFunctor
  */
 public interface CovariantFunctorLaws<F> extends InvariantFunctorLaws<F> {
+
+  /**
+   * The Identity law states that mapping over the identity function should return the original value.
+   *
+   * @param f instance of {@code CovariantFunctor<F>}
+   * @param fa instance of {@code F<A>}
+   * @param <A> type of the values in fa
+   */
   @Test
-  default <A> void covariantIdentity(CovariantFunctor<F> F, Kind<F, A> fa) {
-    assertEquals(fa, F.map(fa, Function.identity()));
+  default <A> void covariantIdentity(CovariantFunctor<F> f, Kind<F, A> fa) {
+    assertEquals(fa, f.map(fa, Function.identity()));
   }
 
+  /**
+   * The composition law stats that mapping one function
+   * over the result of mapping another function should
+   * produce the same result as mapping over the composition of
+   * those functions.
+   *
+   * @param f a {@code CovariantFunctor<F>}
+   * @param fa the input {@code F<A>}
+   * @param f1 the first function
+   * @param g1 the second function
+   * @param <A> the input type
+   * @param <B> the intermediate type
+   * @param <C> the output type
+   */
   @Test
-  default <A, B, C> void covariantComposition(CovariantFunctor<F> F,
+  default <A, B, C> void covariantComposition(CovariantFunctor<F> f,
                                               Kind<F, A> fa,
                                               Function<A, B> f1,
                                               Function<B, C> g1) {
-    assertEquals(F.map(F.map(fa, f1), g1), F.map(fa, g1.compose(f1)));
+    assertEquals(f.map(f.map(fa, f1), g1), f.map(fa, g1.compose(f1)));
   }
 }

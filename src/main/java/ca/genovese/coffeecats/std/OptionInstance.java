@@ -14,7 +14,7 @@ import static ca.genovese.coffeecats.data.option.Option.some;
  */
 public final class OptionInstance implements CovariantFunctor<Option> {
   /**
-   * A convenience instance of ListInstance.
+   * A convenience instance of OptionInstance.
    */
   public static final OptionInstance optionInstance = new OptionInstance();
 
