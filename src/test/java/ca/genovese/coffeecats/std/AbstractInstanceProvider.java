@@ -10,6 +10,9 @@ import java.util.Optional;
 
 /**
  * Abstract class for ParameterResolvers providing instances for Law Tests.
+ *
+ * @param <S> Structure type
+ * @param <F> Data type
  */
 public abstract class AbstractInstanceProvider<S, F> implements ParameterResolver {
   /**
@@ -43,10 +46,10 @@ public abstract class AbstractInstanceProvider<S, F> implements ParameterResolve
    *
    * @param parameter the parameter to be resolved
    * @param target the container for the target on which the {@code java.lang.reflect.Executable}
-   * will be invoked; may be <em>empty</em> if the {@code Executable} is a constructor
-   * or {@code static} method
+   *     will be invoked; may be <em>empty</em> if the {@code Executable} is a constructor
+   *     or {@code static} method
    * @param extensionContext the extension context for the {@code Executable}
-   * about to be invoked
+   *     about to be invoked
    * @return {@code true} if this resolver can resolve the parameter
    * @see #resolve
    * @see java.lang.reflect.Parameter
@@ -104,10 +107,10 @@ public abstract class AbstractInstanceProvider<S, F> implements ParameterResolve
    *
    * @param parameter the parameter to be resolved
    * @param target the container for the target on which the {@code java.lang.reflect.Executable}
-   * will be invoked; may be <em>empty</em> if the {@code Executable} is a constructor
-   * or {@code static} method
+   *     will be invoked; may be <em>empty</em> if the {@code Executable} is a constructor
+   *     or {@code static} method
    * @param extensionContext the extension context for the {@code Executable}
-   * about to be invoked
+   *     about to be invoked
    * @return the resolved parameter object
    * @see #supports
    * @see java.lang.reflect.Parameter
