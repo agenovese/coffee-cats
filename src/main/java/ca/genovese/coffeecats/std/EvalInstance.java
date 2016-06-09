@@ -1,14 +1,10 @@
 package ca.genovese.coffeecats.std;
 
 import ca.genovese.coffeecats.data.eval.Eval;
-import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.kind.Kind;
 import ca.genovese.coffeecats.structures.CovariantFunctor;
 
 import java.util.function.Function;
-
-import static ca.genovese.coffeecats.data.option.Option.none;
-import static ca.genovese.coffeecats.data.option.Option.some;
 
 /**
  * An object which implements all the applicable structures for Option.
@@ -22,14 +18,14 @@ public final class EvalInstance implements CovariantFunctor<Eval> {
   /**
    * An Implementation of Map for Eval.
    *
-   * @param fa The starting Eval
-   * @param f The function to map over fa
+   * @param fa  The starting Eval
+   * @param f   The function to map over fa
    * @param <A> The input type
    * @param <B> The output type
    * @return An Eval with f applied
    */
   @Override
   public <A, B> Kind<Eval, B> map(final Kind<Eval, A> fa, final Function<A, B> f) {
-    return ((Eval<A>)fa).map(f);
+    return ((Eval<A>) fa).map(f);
   }
 }

@@ -105,7 +105,7 @@ final class Always<A> implements Eval<A> {
    * @see java.util.HashMap
    */
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     return equalsCheck(o);
   }
 

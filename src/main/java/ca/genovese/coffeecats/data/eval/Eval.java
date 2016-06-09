@@ -152,7 +152,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param o Eval to compare this to.
    * @return true if o is an Eval and returns an equal value for Eval.value
    */
-  default boolean equalsCheck(Object o) {
+  default boolean equalsCheck(final Object o) {
     if (this == o) return true;
     if (o == null || !Eval.class.isAssignableFrom(o.getClass())) return false;
 
