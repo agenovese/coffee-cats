@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 import static org.junit.gen5.api.Assertions.*;
 
 /**
- * Test for List, ListIterator, Cons, and Nil
+ * Test for List, ListIterator, Cons, and Nil.
  */
 public final class ListTest {
   /**

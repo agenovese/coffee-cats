@@ -61,8 +61,8 @@ final class Always<A> implements Eval<A> {
 
   /**
    * Indicates whether some other object is "equal to" this one.
-   * <p>
-   * The {@code equals} method implements an equivalence relation
+   *
+   * <p>The {@code equals} method implements an equivalence relation
    * on non-null object references:
    * <ul>
    * <li>It is <i>reflexive</i>: for any non-null reference value
@@ -86,15 +86,15 @@ final class Always<A> implements Eval<A> {
    * <li>For any non-null reference value {@code x},
    * {@code x.equals(null)} should return {@code false}.
    * </ul>
-   * <p>
-   * The {@code equals} method for class {@code Object} implements
+   *
+   * <p>The {@code equals} method for class {@code Object} implements
    * the most discriminating possible equivalence relation on objects;
    * that is, for any non-null reference values {@code x} and
    * {@code y}, this method returns {@code true} if and only
    * if {@code x} and {@code y} refer to the same object
    * ({@code x == y} has the value {@code true}).
-   * <p>
-   * Note that it is generally necessary to override the {@code hashCode}
+   *
+   * <p>Note that it is generally necessary to override the {@code hashCode}
    * method whenever this method is overridden, so as to maintain the
    * general contract for the {@code hashCode} method, which states
    * that equal objects must have equal hash codes.
@@ -113,8 +113,8 @@ final class Always<A> implements Eval<A> {
    * Returns a hash code value for the object. This method is
    * supported for the benefit of hash tables such as those provided by
    * {@link java.util.HashMap}.
-   * <p>
-   * The general contract of {@code hashCode} is:
+   *
+   * <p>The general contract of {@code hashCode} is:
    * <ul>
    * <li>Whenever it is invoked on the same object more than once during
    *     an execution of a Java application, the {@code hashCode} method
@@ -132,8 +132,8 @@ final class Always<A> implements Eval<A> {
    *     programmer should be aware that producing distinct integer results
    *     for unequal objects may improve the performance of hash tables.
    * </ul>
-   * <p>
-   * As much as is reasonably practical, the hashCode method defined by
+   *
+   * <p>As much as is reasonably practical, the hashCode method defined by
    * class {@code Object} does return distinct integers for distinct
    * objects. (This is typically implemented by converting the internal
    * address of the object into an integer, but this implementation

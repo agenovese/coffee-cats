@@ -12,6 +12,7 @@ import static org.junit.gen5.api.Assertions.assertEquals;
  * Laws that must be obeyed by any
  * `ca.genovese.coffeecats.structures.CovariantFunctor`.
  *
+ * @param <F> Type for which the CovariantFunctor is being tested
  * @see CovariantFunctor
  */
 public interface CovariantFunctorLaws<F> extends InvariantFunctorLaws<F> {
