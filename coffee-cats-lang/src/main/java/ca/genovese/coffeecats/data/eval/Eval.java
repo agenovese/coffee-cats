@@ -1,8 +1,10 @@
 package ca.genovese.coffeecats.data.eval;
 
+import ca.genovese.coffeecats.data.option.Option;
 import ca.genovese.coffeecats.kind.Kind;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -38,7 +40,7 @@ import java.util.function.Supplier;
  *
  * @param <A> The type returned by this Eval
  */
-public interface Eval<A> extends Serializable, Kind<Eval, A> {
+public abstract class Eval<A> implements Serializable, Kind<Eval, A> {
   /**
    * Return a new Computation which calculates it's value strictly. Basically equivalent to a variable.
    *
@@ -46,7 +48,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param <A> The type returned by the new Eval
    * @return The new Eval
    */
-  static <A> Eval<A> now(A a) {
+  public static <A> Eval<A> now(A a) {
     return new Now<>(a);
   }
 
@@ -58,7 +60,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param <A> The type returned by the new Eval
    * @return The new Eval
    */
-  static <A> Eval<A> now(Supplier<A> a) {
+  public static <A> Eval<A> now(Supplier<A> a) {
     return now(a.get());
   }
 
@@ -70,7 +72,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param <A> The type returned by the new Eval
    * @return The new Eval
    */
-  static <A> Eval<A> later(Supplier<A> a) {
+  public static <A> Eval<A> later(Supplier<A> a) {
     return new Later<>(a);
   }
 
@@ -82,7 +84,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param <A> The type returned by the new Eval
    * @return The new Eval
    */
-  static <A> Eval<A> always(Supplier<A> a) {
+  public static <A> Eval<A> always(Supplier<A> a) {
     return new Always<>(a);
   }
 
@@ -95,7 +97,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    *
    * @return The result of the computation
    */
-  A value();
+  public abstract A value();
 
   /**
    * Transform an Eval&lt;A&gt; into an Eval&lt;B&gt; given the transformation
@@ -111,7 +113,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param <B> output type of the applied function
    * @return A new computation which includes the application of f
    */
-  default <B> Eval<B> map(final Function<A, B> f) {
+  public <B> Eval<B> map(final Function<A, B> f) {
     return flatMap((A a) -> now(f.apply(a)));
   }
 
@@ -131,7 +133,7 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    * @param <B> output type of the computation returned by the applied function
    * @return A new computation which includes the application of f
    */
-  default <B> Eval<B> flatMap(final Function<A, Eval<B>> f) {
+  public <B> Eval<B> flatMap(final Function<A, Eval<B>> f) {
     return new Compute<>(() -> this, f);
   }
 
@@ -144,15 +146,18 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
    *
    * @return A new, memoizing, Eval that is equivalent to the current Eval
    */
-  Eval<A> memoize();
+  public abstract Eval<A> memoize();
+
 
   /**
-   * Implementation function for Equals for Eval instances.
+   * Indicates whether some other object is "equal to" this one.
    *
-   * @param o Eval to compare this to.
-   * @return true if o is an Eval and returns an equal value for Eval.value
+   * @param o the reference object with which to compare.
+   * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+   * @see #hashCode()
+   * @see java.util.HashMap
    */
-  default boolean equalsCheck(final Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }
@@ -167,12 +172,307 @@ public interface Eval<A> extends Serializable, Kind<Eval, A> {
   }
 
   /**
-   * Implementation function for hashCode for Eval instances.
+   * Returns a hash code value for the object. This method is
+   * supported for the benefit of hash tables such as those provided by
+   * {@link java.util.HashMap}.
    *
-   * @return hashCode of Eval.value
+   * @return a hash code value for this object.
+   * @see java.lang.Object#equals(java.lang.Object)
+   * @see java.lang.System#identityHashCode
    */
-  default int hashCodeGen() {
+  public int hashCode() {
     return value().hashCode();
+  }
+
+  /**
+   * Construct an eager Eval&lt;A&gt; instance.
+   *
+   * <p>In some sense it is equivalent to using a val.
+   *
+   * <p>This type should be used when an A value is already in hand, or
+   * when the computation to produce an A value is pure and very fast.
+   *
+   * @param <A> The type returned by this Eval
+   */
+  private final static class Now<A> extends Eval<A> {
+    /**
+     * The value of this Eval.
+     */
+    private final A value;
+
+    /**
+     * Return a new Computation which calculates it's value strictly. Basically equivalent to a variable.
+     *
+     * @param value The value to use as the result of this Computation
+     */
+    Now(final A value) {
+      this.value = value;
+    }
+
+    /**
+     * Evaluate the computation and return an A value.
+     *
+     * <p>For lazy instances (Later, Always), any necessary computation
+     * will be performed at this point. For eager instances (Now), a
+     * value will be immediately returned.
+     *
+     * @return The result of the computation
+     */
+    @Override
+    public A value() {
+      return value;
+    }
+
+    /**
+     * Ensure that the result of the computation (if any) will be
+     * memoized.
+     *
+     * <p>Practically, this means that when called on an Always&lt;A&gt; a
+     * Later&lt;A&gt; with an equivalent computation will be returned.
+     *
+     * @return A new, memoizing, Eval that is equivalent to the current Eval
+     */
+    @Override
+    public Eval<A> memoize() {
+      return this;
+    }
+  }
+
+  /**
+   * Construct a lazy Eval&lt;A&gt; instance.
+   *
+   * <p>This type should be used for most "lazy" values. In some sense it
+   * is equivalent to using a lazy val.
+   *
+   * <p>When caching is not required or desired (e.g. if the value produced
+   * may be large) prefer Always. When there is no computation
+   * necessary, prefer Now.
+   *
+   * <p>Once Later has been evaluated, the closure (and any values captured
+   * by the closure) will not be retained, and will be available for
+   * garbage collection.
+   *
+   * @param <A> The type returned by this Eval
+   */
+  private final static class Later<A> extends Eval<A> {
+    /**
+     * The function to use in calculating the value of this Eval.
+     */
+    private Supplier<A> thunk;
+    /**
+     * The value of this Eval if it has already been computed, or None if it has not.
+     */
+    private Option<A> value = Option.none();
+
+    /**
+     * Return a new Computation which calculates it's value once, lazily.
+     * Basically equivalent to a lazy val in scala.
+     *
+     * @param thunk The function to use to calculate the result of this Computation
+     */
+    Later(final Supplier<A> thunk) {
+      this.thunk = thunk;
+    }
+
+    /**
+     * Evaluate the computation and return an A value.
+     *
+     * <p>For lazy instances (Later, Always), any necessary computation
+     * will be performed at this point. For eager instances (Now), a
+     * value will be immediately returned.
+     *
+     * @return The result of the computation
+     */
+    @Override
+    public A value() {
+      if (!value.isDefined()) {
+        value = Option.some(thunk.get());
+        thunk = null;
+      }
+      return value.get();
+    }
+
+    /**
+     * Ensure that the result of the computation (if any) will be
+     * memoized.
+     *
+     * <p>Practically, this means that when called on an Always&lt;A&gt; a
+     * Later&lt;A&gt; with an equivalent computation will be returned.
+     *
+     * @return A new, memoizing, Eval that is equivalent to the current Eval
+     */
+    @Override
+    public Eval<A> memoize() {
+      return this;
+    }
+  }
+
+  /**
+   * Construct a lazy Eval&lt;A&gt; instance.
+   *
+   * <p>This type can be used for "lazy" values. In some sense it is
+   * equivalent to using a Supplier value.
+   *
+   * <p>This type will evaluate the computation every time the value is
+   * required. It should be avoided except when laziness is required and
+   * caching must be avoided. Generally, prefer Later.
+   *
+   * @param <A> The type returned by this Eval
+   */
+  private static final class Always<A> extends Eval<A> {
+    /**
+     * The function user to calculate the value of this Eval.
+     */
+    private final Supplier<A> f;
+
+    /**
+     * Creates an Eval that executes it's supplier every time it is called,
+     * roughly equivalent to a method call.
+     *
+     * @param f The supplier of the value
+     */
+    Always(final Supplier<A> f) {
+      this.f = f;
+    }
+
+    /**
+     * Evaluate the computation and return an A value.
+     *
+     * <p>For lazy instances (Later, Always), any necessary computation
+     * will be performed at this point. For eager instances (Now), a
+     * value will be immediately returned.
+     *
+     * @return The result of the computation
+     */
+    @Override
+    public A value() {
+      return f.get();
+    }
+
+    /**
+     * Ensure that the result of the computation (if any) will be
+     * memoized.
+     *
+     * <p>Practically, this means that when called on an Always&lt;A&gt; a
+     * Later&lt;A&gt; with an equivalent computation will be returned.
+     *
+     * @return A new, memoizing, Eval that is equivalent to the current Eval
+     */
+    @Override
+    public Eval<A> memoize() {
+      return new Later<>(f);
+    }
+  }
+
+  /**
+   * Compute is a type of Eval&lt;A&gt; that is used to chain computations
+   * involving map() and flatMap(). Along with Eval#flatMap it
+   * implements the trampoline that guarantees stack-safety.
+   *
+   * <p>Users should not instantiate Compute instances
+   * themselves. Instead, they will be automatically created when
+   * needed.
+   *
+   * <p>Unlike a traditional trampoline, the internal workings of the
+   * trampoline are not exposed. This allows a slightly more efficient
+   * implementation of the .value method.
+   *
+   * @param <A> The type returned by this Eval
+   */
+  private final static class Compute<A> extends Eval<A> {
+    /**
+     * The function which returns the initial Eval.
+     */
+    private final Supplier<Eval> start;
+    /**
+     * The function to apply to start's value to calculate the value of this eval.
+     */
+    private final Function run;
+
+    /**
+     * Creates a new Eval, based on an existing Eval and a function.
+     *
+     * @param start The Eval from which this Eval's computation is started
+     * @param run   The function to apply to the start Eval's value to calculate this Eval
+     */
+    Compute(final Supplier<Eval> start, final Function run) {
+      this.start = start;
+      this.run = run;
+    }
+
+    /**
+     * Lazily perform a computation based on an Eval&lt;A&gt;, using the
+     * function `f` to produce an Eval&lt;B&gt; given an A.
+     *
+     * <p>This call is stack-safe -- many .flatMap calls may be chained
+     * without consumed additional stack during evaluation. It is also
+     * written to avoid left-association problems, so that repeated
+     * calls to .flatMap will be efficiently applied.
+     *
+     * <p>Computation performed in f is always lazy, even when called on an
+     * eager (Now) instance.
+     *
+     * @param f   the function to apply to the result of the current computation
+     * @param <B> output type of the computation returned by the applied function
+     * @return A new computation which includes the application of f
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public <B> Eval<B> flatMap(final Function<A, Eval<B>> f) {
+      return new Compute<>(start,
+          s -> new Compute<>(() -> (Eval) this.run.apply(s), f));
+    }
+
+    /**
+     * Ensure that the result of the computation (if any) will be
+     * memoized.
+     *
+     * <p>Practically, this means that when called on an Always&lt;A&gt; a
+     * Later&lt;A&gt; with an equivalent computation will be returned.
+     *
+     * @return A new, memoizing, Eval that is equivalent to the current Eval
+     */
+    @Override
+    public Eval<A> memoize() {
+      return new Later<>(this::value);
+    }
+
+    /**
+     * Evaluate the computation and return an A value.
+     *
+     * <p>For lazy instances (Later, Always), any necessary computation
+     * will be performed at this point. For eager instances (Now), a
+     * value will be immediately returned.
+     *
+     * @return The result of the computation
+     */
+    @SuppressWarnings("unchecked")
+    public A value() {
+      final LinkedList<Function> fs = new LinkedList<>();
+      Eval curr = this;
+      boolean cont = true;
+
+      while (cont) {
+        if (curr instanceof Compute) {
+          final Compute c = (Compute) curr;
+          final Eval cstart = (Eval) c.start.get();
+          if (cstart instanceof Compute) {
+            fs.add(0, c.run);
+            curr = cstart;
+          } else {
+            curr = (Eval) c.run.apply(cstart.value());
+          }
+        } else {
+          if (fs.isEmpty()) {
+            cont = false;
+          } else {
+            final Function f = fs.pop();
+            curr = (Eval) f.apply(curr.value());
+          }
+        }
+      }
+      return (A) curr.value();
+    }
   }
 }
 

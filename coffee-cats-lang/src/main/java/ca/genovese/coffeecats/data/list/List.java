@@ -1,8 +1,11 @@
 package ca.genovese.coffeecats.data.list;
 
 import ca.genovese.coffeecats.kind.Kind;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A class for immutable linked lists representing ordered collections of elements of type A.
@@ -16,7 +19,12 @@ import java.util.Iterator;
  *
  * @param <A> The type of the items in the list
  */
-public interface List<A> extends Iterable<A>, Kind<List, A> {
+public abstract class List<A> implements Iterable<A>, Kind<List, A> {
+
+  private List() {
+
+  }
+
   /**
    * Utility method for creating a List.
    *
@@ -25,7 +33,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
    * @return A new list containing the specified items
    */
   @SafeVarargs
-  static <A> List<A> of(final A... as) {
+  public static <A> List<A> of(final A... as) {
     List<A> list = new Nil<>();
 
     for (int i = as.length - 1; i >= 0; i--) {
@@ -42,7 +50,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
    * @param <A> The type of items in the List
    * @return The new List
    */
-  static <A> List<A> cons(final A a, final List<A> as) {
+  public static <A> List<A> cons(final A a, final List<A> as) {
     return new Cons<>(a, as);
   }
 
@@ -52,7 +60,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
    * @return the length of the list
    */
   @SuppressWarnings("unused")
-  default int length() {
+  public int length() {
     int length = 0;
 
     for (A a : this) {
@@ -66,7 +74,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
    * Create a list which is the reverse of this list.
    * @return The reverse of this list
    */
-  default List<A> reverse() {
+  public List<A> reverse() {
     List<A> result = of();
 
     for (A a : this) {
@@ -82,7 +90,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
    * @param as The list to concatenate to this list
    * @return The new, concatenated, List
    */
-  default List<A> append(final List<A> as) {
+  public List<A> append(final List<A> as) {
     List<A> result = as;
 
     for (A a : reverse()) {
@@ -98,7 +106,7 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
    * @return an Iterator.
    */
   @Override
-  default Iterator<A> iterator() {
+  public Iterator<A> iterator() {
     return new ListIterator<>(this);
   }
 
@@ -106,18 +114,111 @@ public interface List<A> extends Iterable<A>, Kind<List, A> {
    * Selects the first element of this List.
    * @return the first element of this List
    */
-  A getHead();
+  public abstract A getHead();
 
   /**
    * Selects all elements except the first.
    * @return all elements except the first.
    */
-  List<A> getTail();
+  public abstract List<A> getTail();
 
   /**
    * Tests whether this List is empty.
    * @return true if this List is empty, false otherwise
    */
-  boolean isEmpty();
+  public abstract boolean isEmpty();
+
+  /**
+   * An object representing the empty List, effectively the end of any list.
+   *
+   * @param <A> The type of the items in the list
+   */
+  @ToString
+  @EqualsAndHashCode
+  private static final class Nil<A> extends List<A> {
+    /**
+     * Selects the first element of this List.
+     *
+     * @return the first element of this List.
+     */
+    public A getHead() {
+      throw new NoSuchElementException("getHead on an empty list");
+    }
+
+    /**
+     * Selects all elements except the first.
+     *
+     * @return all elements except the first.
+     */
+    public List<A> getTail() {
+      throw new NoSuchElementException("getTail on an empty list");
+    }
+
+    /**
+     * Tests whether this List is empty.
+     *
+     * @return true if this List is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+      return true;
+    }
+
+  }
+
+  /**
+   * A non empty list characterized by a head and a tail.
+   *
+   * @param <A> The type of the items in the list
+   */
+  @ToString
+  @EqualsAndHashCode
+  private static final class Cons<A> extends List<A> {
+    /**
+     * The first item in the list.
+     */
+    private final A head;
+    /**
+     * The rest of the items in the list.
+     */
+    private final List<A> tail;
+
+    /**
+     * Constructs a List.
+     *
+     * @param head The first item in the new List
+     * @param tail The rest of the items in the list
+     */
+    Cons(final A head, final List<A> tail) {
+      this.head = head;
+      this.tail = tail;
+    }
+
+    /**
+     * Selects the first element of this List.
+     *
+     * @return the first element of this List
+     */
+    public A getHead() {
+      return head;
+    }
+
+    /**
+     * Selects all elements except the first.
+     *
+     * @return all elements except the first.
+     */
+    public List<A> getTail() {
+      return tail;
+    }
+
+    /**
+     * Tests whether this List is empty.
+     *
+     * @return true if this List is empty, false otherwise
+     */
+    public boolean isEmpty() {
+      return false;
+    }
+  }
 }
 

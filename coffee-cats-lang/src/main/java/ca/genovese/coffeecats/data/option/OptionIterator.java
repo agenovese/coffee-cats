@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * * An iterator over an Option.
+ * An iterator over an Option.
  *
  * @param <A> The type of the items in this iteration
  * @see Option

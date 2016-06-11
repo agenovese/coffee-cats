@@ -35,7 +35,7 @@ final class ListIterator<A> implements Iterator<A> {
    */
   @Override
   public boolean hasNext() {
-    return !(list instanceof Nil);
+    return !(list.isEmpty());
   }
 
   /**
