@@ -1,6 +1,8 @@
 package ca.genovese.coffeecats.data.tuple;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.function.BiFunction;
 
@@ -10,17 +12,18 @@ import java.util.function.BiFunction;
  * @param <A> The type of the first element
  * @param <B> The type of the second element
  */
-@Data
+@ToString
+@EqualsAndHashCode
 public final class Tuple2<A, B> {
   /**
    * The first Element.
    */
-  private final A _1;
+  private final A a;
 
   /**
    * The first Element.
    */
-  private final B _2;
+  private final B b;
 
   /**
    * Construct a tuple.
@@ -29,8 +32,26 @@ public final class Tuple2<A, B> {
    * @param b The second element in the Tuple
    */
   public Tuple2(final A a, final B b) {
-    _1 = a;
-    _2 = b;
+    this.a = a;
+    this.b = b;
+  }
+
+  /**
+   * Get the first element in the Tuple.
+   *
+   * @return the first element in the Tuple
+   */
+  public A getA() {
+    return a;
+  }
+
+  /**
+   * Get the second element in the Tuple.
+   *
+   * @return the second element in the Tuple
+   */
+  public B getB() {
+    return b;
   }
 
   /**
@@ -41,6 +62,6 @@ public final class Tuple2<A, B> {
    * @return the result of the function
    */
   public <R> R applyTo(final BiFunction<A, B, R> f) {
-    return f.apply(_1, _2);
+    return f.apply(a, b);
   }
 }
