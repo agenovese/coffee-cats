@@ -6,12 +6,13 @@
 
     <parent>
         <groupId>ca.genovese</groupId>
-        <artifactId>coffee-cats</artifactId>
+        <artifactId>coffee-cats-parent</artifactId>
         <version>0.2-SNAPSHOT</version>
+        <relativePath>../coffee-cats-parent</relativePath>
     </parent>
 
-    <artifactId>coffee-cats-core</artifactId>
-    <name>coffee-cats-core</name>
+    <artifactId>coffee-cats-instances</artifactId>
+    <name>coffee-cats-instances</name>
 
     <description>
         A library of functional structures in java

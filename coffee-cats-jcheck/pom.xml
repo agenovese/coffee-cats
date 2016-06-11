@@ -6,8 +6,9 @@
 
     <parent>
         <groupId>ca.genovese</groupId>
-        <artifactId>coffee-cats</artifactId>
+        <artifactId>coffee-cats-parent</artifactId>
         <version>0.2-SNAPSHOT</version>
+        <relativePath>../coffee-cats-parent</relativePath>
     </parent>
 
     <artifactId>coffee-cats-jcheck</artifactId>
